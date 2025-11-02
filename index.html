@@ -4,6 +4,81 @@
     <head>
         <meta charset="UTF-8">
         <title>Pizzeria</title>
-        <link rel="stylesheet" href="estilo_index.css">
+        <link rel="stylesheet" href="css/estilo_index.css">
     </head>
+
+    <header>
+        <div class="logo"><span>🍕</span>
+        </div>
+
+        <h1 class="titulo"> 8VA Rebanada</h1>
+
+        <div class="botones">
+            <button class="btn-login">Iniciar Sesion</button>
+            <button class="btn-carrito">Carrito</button>
+        </div>
+
+
+        
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="texto-hero">
+                <h1>¡La pasión por la pizza empieza aquí!</h1>
+                <p>Descubre el sabor único de <strong>La 8va Rebanada</strong>.</p>
+            </div>
+
+            <div class="linea">
+
+            </div>
+
+            <div class="video-hero">
+                <video autoplay muted loop playsinline>
+                <source src="img/pizza_video.mp4" type="video/mp4">
+                    Tu navegador no soporta videos HTML5.
+                </video>
+            </div>
+        </section>
+    </main>
+    <body>
+        <div class="slide">
+        <input class="slide-open" type="radio" id="slide-1" name="slide" aria-hidden="true" hidden="" checked="checked">
+        <input class="slide-open" type="radio" id="slide-2" name="slide" aria-hidden="true" hidden="">
+        <input class="slide-open" type="radio" id="slide-3" name="slide" aria-hidden="true" hidden="">
+        <input class="slide-open" type="radio" id="slide-4" name="slide" aria-hidden="true" hidden="">
+        <input class="slide-open" type="radio" id="slide-5" name="slide" aria-hidden="true" hidden="">
+
+            <div class="slide-inner">
+                <div class="slide-item">
+                <img src="img/pizza-hawaiana.jpg" alt="Diapositiva 1: Embedding API">
+            </div>
+            <div class="slide-item">
+                <img src="img/pizza_mexicana.jpg" alt="Diapositiva 2: PostgreSQL Copy">
+            </div>
+            <div class="slide-item">
+                <img src="img/pizza_peperoni.jpg" alt="Diapositiva 3: Guardar CSV">
+            </div>
+            <div class="slide-item">
+                <img src="img/pizza_4q.jpg" alt="Diapositiva 4: Placeholder Rojo">
+            </div>
+            <div class="slide-item">
+                <img src="img/pizza_vegetariana.jpg" alt="Diapositiva 5: Placeholder Verde">
+            </div>
+        </div>
+
+        <ol class="slide-indicador">
+            <li><label for="slide-1" class="slide-circulo">•</label></li>
+            <li><label for="slide-2" class="slide-circulo">•</label></li>
+            <li><label for="slide-3" class="slide-circulo">•</label></li>
+            <li><label for="slide-4" class="slide-circulo">•</label></li>
+            <li><label for="slide-5" class="slide-circulo">•</label></li>
+        </ol>
+    </div>
+
+    
+    
+    <script src="js/carrusel.js"></script>
+    </body>
+
 </html>

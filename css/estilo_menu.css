@@ -523,3 +523,84 @@ button:hover {
     align-items: center;
   }
 }
+
+/* 🔸 Recuadro de preferencia de entrega */
+.contenedor-preferencia {
+    background: linear-gradient(to bottom right, #ffffff, #f7f7f7);
+    width: 80%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.contenedor-preferencia:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: scale(1.02);
+}
+
+.contenedor-preferencia h3 {
+    font-family: 'Georgia', serif;
+    font-size: 1.9rem;
+    color: #b22222;
+    margin-bottom: 10px;
+}
+
+.contenedor-preferencia hr {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 10px 0 20px 0;
+}
+
+.contenido-preferencia {
+    min-height: 100px;
+}
+
+
+.opciones-entrega {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.opcion {
+    text-align: center;
+}
+
+.btn-opcion {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 130px;
+    height: 130px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-opcion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.btn-opcion:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.opcion p {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: #b22222; /* Rojo elegante */
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+}

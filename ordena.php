@@ -126,10 +126,10 @@
 
     <!-- 🔹 BOTONES -->
     <div class="botones-inferiores">
-        <a href="index.html" class="btn-login">Inicio</a>
-        <a href="menu.html" class="btn-login">Menú</a>
-        <a href="ordena.html" class="btn-login btn-activo">Ordena</a> <!-- 🔸 Botón activo -->
-        <a href="contacto.html" class="btn-login">Contacto</a>
+        <a href="index.php" class="btn-login">Inicio</a>
+        <a href="menu.php" class="btn-login">Menú</a>
+        <a href="ordena.php" class="btn-login btn-activo">Ordena</a> <!-- 🔸 Botón activo -->
+        <a href="contacto.php" class="btn-login">Contacto</a>
     </div>
 
     <!-- 🔹 SECCIÓN CON FONDO -->

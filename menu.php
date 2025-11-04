@@ -27,16 +27,20 @@
 
     <main>
         <div class="botones-inferiores">
-            <a href="index.html" class="btn-login">Inicio</a>
-            <a href="menu.html" class="btn-login">Menu</a>
-            <a href="ordena.html" class="btn-login">Ordena</a>
-            <a href="contacto.html" class="btn-login">Contacto</a>
+            <a href="index.php" class="btn-login">Inicio</a>
+            <a href="menu.php" class="btn-login">Menu</a>
+            <a href="ordena.php" class="btn-login">Ordena</a>
+            <a href="contacto.php" class="btn-login">Contacto</a>
 
             
         </div>
 
         <div class="contenedor-linea">
             <div class="linea1"></div>
+        </div>
+
+        <div class="contenedor-productos">
+            
         </div>
         
 

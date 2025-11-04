@@ -1,3 +1,24 @@
+<?php
+session_start();
+
+// Si el formulario fue enviado
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = trim($_POST["nombre"]);
+    $correo = trim($_POST["correo"]);
+    $contrasena = $_POST["contrasena"];
+    $verificar = $_POST["verificar"];
+
+    if ($contrasena === $verificar) {
+        // Guardamos el nombre en sesión
+        $_SESSION["usuario"] = $nombre;
+        // Redirigimos a la página principal
+        header("Location: index.php");
+        exit;
+    } else {
+        $error = "Las contraseñas no coinciden.";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,8 +35,12 @@
     </header>
 
     <main>
-        <form class="form-login">
+        <form class="form-login" method="POST" action="">
             <h2>Formulario de Inicio de Sesión</h2>
+
+            <?php if (!empty($error)): ?>
+                <p style="color:red;"><?php echo $error; ?></p>
+            <?php endif; ?>
 
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
@@ -33,7 +58,7 @@
         </form>
 
         <div class="regresar">
-            <a href="index.html">← Volver a la página principal</a>
+            <a href="index.php">← Volver a la página principal</a>
         </div>
     </main>
 </body>

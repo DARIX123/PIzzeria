@@ -155,6 +155,13 @@
                 </button>
                 <p>EN TIENDA</p>
             </div>
+        <div class="botones-inferiores">
+            <a href="index.php" class="btn-login">Inicio</a>
+            <a href="menu.php" class="btn-login">Menu</a>
+            <a href="ordena.php" class="btn-login">Ordena</a>
+            <a href="contacto.php" class="btn-login">Contacto</a>
+
+            
         </div>
     </div>
 </div>

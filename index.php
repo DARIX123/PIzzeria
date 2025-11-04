@@ -10,6 +10,8 @@
 
 <body>
     <header>
+        <?php session_start(); ?>
+
         <div class="logo">
             <span>🍕</span>
         </div>
@@ -19,15 +21,21 @@
         <!-- Contenedor de la parte derecha -->
         <div class="acciones-header">
             <div class="botones-superiores">
-                <a href="formulario.html" class="btn-login">Iniciar Sesión</a>
-                <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
-            </div>
+    <?php if (isset($_SESSION["usuario"])): ?>
+        <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
+        <a href="logout.php" class="btn-login">Cerrar sesión</a>
+    <?php else: ?>
+        <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+    <?php endif; ?>
+    <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
+</div>
+
         </div>
     </header>
 
     <main>
         <div class="botones-inferiores">
-            <a href="index.html" class="btn-login">Inicio</a>
+            <a href="index.php" class="btn-login">Inicio</a>
             <a href="menu.html" class="btn-login">Menu</a>
             <a href="ordena.html" class="btn-login">Ordena</a>
             <a href="contacto.html" class="btn-login">Contacto</a>

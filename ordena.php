@@ -29,19 +29,24 @@
         }
 
         /* 🔹 Zona central con imagen de fondo */
+
         main {
-            background-image: url("img/fondooo.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            z-index: 0;
-            color: white;
-            padding: 40px 0 80px;
-            min-height: 60vh;
-            text-align: center;
-        }
+    background-image: url("img/fondooo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: scroll; /* 🔹 Ya no está fijo */
+    margin-top: 50px; /* 🔹 Esto baja toda la imagen respecto a los botones */
+    position: relative;
+    z-index: 0;
+    color: white;
+    padding: 30px 0 30px;
+    min-height: 55vh;
+    text-align: center;
+}
+
+
+
 
         main::before {
             content: "";
@@ -76,34 +81,10 @@
         }
 
         /* 🔹 Botones */
-        .botones-inferiores {
-            background-color: #fff;
-            text-align: center;
-            padding: 15px 0;
-        }
+        
+        
 
-        .btn-login {
-            background-color: white;
-            border: 2px solid red;
-            padding: 8px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: red;
-            font-weight: bold;
-            margin: 0 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-login:hover {
-            background-color: red;
-            color: white;
-        }
-
-        /* 🔹 Botón activo (página actual) */
-        .btn-activo {
-            background-color: red;
-            color: white;
-        }
+     
     </style>
 </head>
 
@@ -126,10 +107,10 @@
 
     <!-- 🔹 BOTONES -->
     <div class="botones-inferiores">
-        <a href="index.html" class="btn-login">Inicio</a>
-        <a href="menu.html" class="btn-login">Menú</a>
-        <a href="ordena.html" class="btn-login btn-activo">Ordena</a> <!-- 🔸 Botón activo -->
-        <a href="contacto.html" class="btn-login">Contacto</a>
+        <a href="index.php" class="btn-login">Inicio</a>
+        <a href="menu.php" class="btn-login">Menú</a>
+        <a href="ordena.php" class="btn-login ">Ordena</a> <!-- 🔸 Botón activo -->
+        <a href="contacto.php" class="btn-login">Contacto</a>
     </div>
 
     <!-- 🔹 SECCIÓN CON FONDO -->
@@ -155,11 +136,7 @@
                 </button>
                 <p>EN TIENDA</p>
             </div>
-        <div class="botones-inferiores">
-            <a href="index.php" class="btn-login">Inicio</a>
-            <a href="menu.php" class="btn-login">Menu</a>
-            <a href="ordena.php" class="btn-login">Ordena</a>
-            <a href="contacto.php" class="btn-login">Contacto</a>
+        
 
             
         </div>

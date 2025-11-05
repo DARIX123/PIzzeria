@@ -19,7 +19,7 @@
         <!-- Contenedor de la parte derecha -->
         <div class="acciones-header">
             <div class="botones-superiores">
-                <a href="formulario.html" class="btn-login">Iniciar Sesión</a>
+                <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
             </div>
         </div>

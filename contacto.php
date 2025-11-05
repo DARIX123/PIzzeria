@@ -18,7 +18,7 @@
 
         <div class="acciones-header">
             <div class="botones-superiores">
-                <a href="formulario.html" class="btn-login">Invitado</a>
+                <a href="formulario.php" class="btn-login">Invitado</a>
                 <button class="btn-carrito">
                     <img src="img/carro.png" alt="carrito">
                 </button>

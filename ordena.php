@@ -99,7 +99,7 @@
 
         <div class="acciones-header">
             <div class="botones-superiores">
-                <a href="formulario.html" class="btn-login">Iniciar Sesión</a>
+                <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
             </div>
         </div>
@@ -125,9 +125,12 @@
     <div class="contenido-preferencia">
         <div class="opciones-entrega">
             <div class="opcion">
-                <button class="btn-opcion">
-                    <img src="img/domicilio.jpg" alt="Domicilio">
-                </button>
+              <a href="domicilio.php">
+    <button class="btn-opcion">
+        <img src="img/domicilio.jpg" alt="Domicilio">
+    </button>
+</a>
+
                 <p>A DOMICILIO</p>
             </div>
             <div class="opcion">

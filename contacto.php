@@ -18,45 +18,58 @@
 
         <div class="acciones-header">
             <div class="botones-superiores">
-                <a href="formulario.html" class="btn-login">Iniciar Sesión</a>
-                <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
+                <a href="formulario.html" class="btn-login">Invitado</a>
+                <button class="btn-carrito">
+                    <img src="img/carro.png" alt="carrito">
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- 🔹 BOTONES INFERIORES -->
     <div class="botones-inferiores">
-            <a href="index.php" class="btn-login">Inicio</a>
-            <a href="menu.php" class="btn-login">Menu</a>
-            <a href="ordena.php" class="btn-login">Ordena</a>
-            <a href="contacto.php" class="btn-login">Contacto</a>
-
-            
-        </div>
+        <a href="index.php" class="btn-login">Inicio</a>
+        <a href="menu.php" class="btn-login">Menú</a>
+        <a href="ordena.php" class="btn-login">Ordena</a>
+        <a href="contacto.php" class="btn-login activo">Contacto</a>
+    </div>
 
     <div class="contenedor-linea">
         <div class="linea1"></div>
     </div>
 
     <!-- 🔹 CONTENIDO PRINCIPAL -->
-    <main class="contacto">
-        <h2>Contáctanos</h2>
-        <p>¿Tienes dudas o comentarios? ¡Nos encantaría escucharte!</p>
+    <main class="contacto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; width: 90%; max-width: 900px; margin: 40px auto;">
 
-        <form class="form-contacto" action="#" method="post">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <!-- 📞 IZQUIERDA -->
+        <section class="servicio" style="border: 2px solid #b22222; border-radius: 10px; padding: 20px;">
+            <h3 style="color:#0a3d62;">Estamos a tu servicio ☎️</h3>
+            <ul style="list-style:none; padding:10px 0;">
+                <li>477 294 3183</li>
+                <li>477 522 3650</li>
+                <li>477 574 2766</li>
+                <li>479 482 0055</li>
+            </ul>
 
-            <label for="correo">Correo electrónico:</label>
-            <input type="email" id="correo" name="correo" placeholder="tucorreo@ejemplo.com" required>
+            <div class="horarios" style="margin-top:15px;">
+                <h4 style="color:#0a3d62;">Horarios</h4>
+                <p>Pedidos en línea: 11:00am – 11:00pm</p>
+                <p>Entrega a domicilio: hasta 11:30pm</p>
+                <p>Soporte en línea: 12:00pm – 9:00pm</p>
+            </div>
+        </section>
 
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        <!-- 💬 DERECHA -->
+        <section class="sugerencias" style="border: 2px solid #b22222; border-radius: 10px; padding: 20px;">
+            <h3 style="color:#0a3d62;">Queremos escucharte</h3>
+            <p>¿Tienes alguna sugerencia, comentario o queja sobre nuestro servicio o productos?  
+            Por favor compártela con nosotras.</p>
 
-            <button type="submit" class="btn-enviar">Enviar</button>
-        </form>
+            <textarea placeholder="Escribe aquí..." style="width:100%; height:120px; border:1.5px solid #b22222; border-radius:8px; padding:10px; resize:none; margin-top:10px;"></textarea>
+        </section>
     </main>
 
-    <!-- 🔹 PIE DE PÁGINA -->
+    <!-- 🔹 PIE DE PÁGINA (igual que antes) -->
     <footer class="pie-pagina">
         <div class="footer-izq">
             <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
@@ -68,3 +81,4 @@
     </footer>
 </body>
 </html>
+

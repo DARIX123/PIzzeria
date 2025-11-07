@@ -25,7 +25,7 @@
             <a href="contacto.php" class="btn-login">Contacto</a>
         </div>
 
-    <div class="linea"></div>
+    <div class="linea2"></div>
 
     
     <!-- 🔹 BARRA DE BUSQUEDA CON MICRO -->

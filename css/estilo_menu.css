@@ -1,16 +1,26 @@
+/* ----------------------------- */
+/* RESET Y BASE */
+/* ----------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fffaf8;
+  color: #333;
+  padding-top: 130px;
+}
 
-
-
+/* ----------------------------- */
+/* HEADER */
+/* ----------------------------- */
 header {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: center; /* centra verticalmente */
+  align-items: center;
   padding: 25px 40px;
   background-color: #f9f9f9;
   border-bottom: 2px solid #e0e0e0;
@@ -20,63 +30,23 @@ header {
   width: 100%;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 1000;
-  
-}
-
-.titulo {
-  justify-self:center ;
-  font-size: 1.9rem;
-
 }
 
 .logo span {
-  font-size: 2rem;
-}
-
-
-
-body {
-  padding-top: 130px;
+  font-size: 2.2rem;
 }
 
 .titulo {
-  font-size: 3rem;
+  justify-self: center;
+  font-size: 2rem;
   color: #b22222;
-  font-family: "Poppins", sans-serif;
-  text-align: center;
   font-weight: bold;
-  margin-left: 180px;
-
 }
 
-.acciones-header {
-  justify-self: end;
-}
-
-/* 4️⃣ Acciones (botones) */
 .acciones-header {
   display: flex;
- 
   align-items: center;
-  justify-content: flex-end;
   gap: 20px;
- 
-}
-
-.botones-superiores {
-  display: flex;
-  gap: 10px;
-}
-
-.botones-inferiores { 
-  display: flex;
-  gap: 4px;
-  margin-left: 30px;
-  
-  align-items: center;
-  justify-content: center;
- 
-
 }
 
 .btn-login {
@@ -88,8 +58,7 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 30px;
-  
+  text-decoration: none;
 }
 
 .btn-login:hover {
@@ -97,34 +66,15 @@ body {
   color: white;
 }
 
-.btn-login2 {
-  border: 2px solid #d14b00;
-  background: transparent;
-  color: #d14b00;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-right: 30px;
-
-}
-
-
 .btn-carrito {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .btn-carrito img {
-  width: 28px; /* tamaño del icono */
+  width: 28px;
   height: 28px;
-  object-fit: contain;
   transition: transform 0.2s ease;
   filter: brightness(0) saturate(100%) invert(24%) sepia(93%) saturate(2050%) hue-rotate(5deg);
 }
@@ -133,81 +83,214 @@ body {
   transform: scale(1.1);
 }
 
+/* ----------------------------- */
+/* BOTONES INFERIORES */
+/* ----------------------------- */
+.botones-inferiores {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
 
-button {
-  padding: 9px 14px;
+/* ----------------------------- */
+/* LÍNEA DECORATIVA */
+/* ----------------------------- */
+.linea2 {
+  width: 120px;
+  height: 3px;
+  background-color: #b22222;
+  border-radius: 10px;
+  margin: 20px auto;
+}
+
+/* ----------------------------- */
+/* BUSCADOR CON MICRO */
+/* ----------------------------- */
+.buscador-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px auto 10px;
+  width: 100%;
+  max-width: 450px;
+}
+
+.buscador-contenedor input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.buscador-contenedor input:focus {
+  border-color: #b22222;
+}
+
+.buscador-contenedor button {
+  background: #b22222;
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s ease;
+}
+
+.buscador-contenedor button:hover {
+  background: #d33a2c;
+}
+
+/* ----------------------------- */
+/* CATEGORÍAS */
+/* ----------------------------- */
+.categorias {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px auto 30px;
+}
+
+.btn-cat {
+  background-color: #f4f4f4;
+  color: #b22222;
+  border: 2px solid #b22222;
+  padding: 8px 16px;
+  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-cat:hover, .btn-cat.active {
   background-color: #b22222;
   color: white;
-  transition: background-color 0.3s;
 }
 
-button:hover {
+/* ----------------------------- */
+/* PRODUCTOS */
+/* ----------------------------- */
+.contenedor-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  padding: 0 40px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tarjeta-producto {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.tarjeta-producto img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.tarjeta-producto h3 {
+  font-size: 1.3rem;
+  color: #b22222;
+  margin-bottom: 5px;
+}
+
+.tarjeta-producto .desc {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.tarjeta-producto .precio {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+/* Controles de cantidad */
+.acciones-producto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-mas,
+.btn-menos {
+  width: 35px;
+  height: 35px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  background-color: #b22222;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-mas:hover,
+.btn-menos:hover {
   background-color: #d33a2c;
-
 }
 
-/* 5️⃣ Responsividad */
-@media (max-width: 768px) {
-  header {
-    flex-direction: column; /* cambia a columna */
-    text-align: center;
-    align-items: center;
-    
-  }
-
-  body {
-    padding-top: 170px;
-  }
-
-  .acciones-header {
-    align-items: center;
-  }
-
-  .botones-inferiores {
-    margin-right: 20px;
-  }
-
-  .botones-inferiores,.botones-superiores {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  button {
-    font-size: 0.9rem;
-    padding: 6px 10px;
-  }
-
-  .titulo {
-    font-size: 1.5rem;
-    margin: 10px 0;
-  }
-
-  .btn-login {
-    margin-left: 35px;
-  }
-
-  .acciones {
-    margin-top: 10px;
-  }
+.cantidad {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
 }
 
-.linea { 
-    
-    width: 300px;         
-    height: 3px;    
-    background-color: #b22222; 
-    border-radius: 10px;
-    margin: 20px auto;
-    
-    display: block;
-
+/* Botón agregar al carrito */
+.btn-agregar {
+  background-color: #b22222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
 
+.btn-agregar:hover {
+  background-color: #d33a2c;
+  transform: scale(1.05);
+}
 
+/* ----------------------------- */
+/* MENSAJES DE ESTADO */
+/* ----------------------------- */
+.no-result, .error {
+  text-align: center;
+  font-weight: bold;
+  color: #b22222;
+  margin-top: 30px;
+}
+
+/* ----------------------------- */
+/* FOOTER */
+/* ----------------------------- */
 .pie-pagina {
   background-color: #b22222;
   color: white;
@@ -249,5 +332,14 @@ button:hover {
 
   .footer-der {
     text-align: center;
+  }
+
+  .contenedor-productos {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .tarjeta-producto img {
+    height: 160px;
   }
 }

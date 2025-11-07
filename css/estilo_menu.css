@@ -20,7 +20,7 @@ body {
 header {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: center;
+  align-items: center; /* centra verticalmente */
   padding: 25px 40px;
   background-color: #f9f9f9;
   border-bottom: 2px solid #e0e0e0;
@@ -30,6 +30,7 @@ header {
   width: 100%;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 1000;
+  
 }
 
 .logo span {
@@ -343,3 +344,124 @@ header {
     height: 160px;
   }
 }
+
+/* Contador encima del carrito */
+#contador-carrito {
+  position: absolute;
+  top: 18px;
+  right: 8px;
+  background: #b22222;
+  color: white;
+  font-size: 0.75rem;
+  padding: 3px 6px;
+  border-radius: 50%;
+}
+
+/* Panel lateral del carrito */
+.panel-carrito {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 380px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s ease;
+  padding: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-carrito.active {
+  right: 0;
+}
+
+.panel-carrito h2 {
+  color: #b22222;
+  margin-bottom: 10px;
+}
+
+#lista-carrito {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.item-carrito {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.item-carrito img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.total-carrito {
+  border-top: 2px solid #b22222;
+  padding-top: 10px;
+}
+
+#btn-pagar {
+  background: #b22222;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#btn-pagar:hover {
+  background: #d33a2c;
+}
+
+
+/* Fondo oscuro detrás del carrito */
+.overlay-carrito {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+  z-index: 1500;
+}
+
+.overlay-carrito.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animación suave del carrito */
+.panel-carrito {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 380px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  padding: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-carrito.active {
+  right: 0;
+}
+

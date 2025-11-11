@@ -1,23 +1,65 @@
 <?php
-  include __DIR__ . '/API/config.php';
+session_start();
+if (!isset($_SESSION["usuario"])) {
+  header("Location: formulario.php");
+  exit;
+}
+
+include __DIR__ . '/API/config.php';
+if (!empty($_SESSION['carrito'])) {
+    foreach ($_SESSION['carrito'] as $producto) {
+        $nombre = $producto['nombre'];
+        $precio = $producto['precio'];
+        $imagen = $producto['imagen'];
+        $cantidad = $producto['cantidad'];
+        $total_producto = $precio * $cantidad;
+
+        // Guardar en la base de datos cada producto
+        $query = "INSERT INTO compras (usuario, producto, imagen, cantidad, total, fecha)
+                  VALUES ('$usuario', '$nombre', '$imagen', '$cantidad', '$total_producto', NOW())";
+        mysqli_query($conexion, $query);
+
+        // Mostrar en el ticket
+        echo "
+        <div class='ticket-item'>
+            <img src='img/$imagen' alt='$nombre'>
+            <h3>$nombre</h3>
+            <p>Cantidad: $cantidad</p>
+            <p>Precio unitario: $$precio</p>
+            <p>Total: $$total_producto</p>
+        </div>
+        ";
+    }
+
+    // Vaciar carrito al final
+    unset($_SESSION['carrito']);
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Domicilio - Mapa de Entrega</title>
+  <title>Domicilio - 8VA ReBaNaDa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/estilo_index.css">
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
+      margin: 0;
       background: #fafafa;
       color: #333;
     }
 
+    main {
+      padding: 20px;
+    }
+
     h2 {
       text-align: center;
+      margin-top: 10px;
     }
 
     #search-container {
@@ -84,23 +126,56 @@
     }
   </style>
 </head>
+
 <body>
+  <!-- 🔹 Encabezado -->
+  <header>
+    <div class="logo">
+      <span>🍕</span>
+    </div>
+    <h1 class="titulo">8VA ReBaNaDa</h1>
 
-  <h2>📍 Ingresa tu dirección de entrega en León, Gto</h2>
+    <div class="acciones-header">
+      <div class="botones-superiores">
+        <?php if (isset($_SESSION["usuario"])): ?>
+            <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
+            <a href="logout.php" class="btn-login">Cerrar sesión</a>
+        <?php else: ?>
+            <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+        <?php endif; ?>
+        <button class="btn-carrito">
+          <img src="img/carro.png" alt="carrito">
+        </button>
+      </div>
+    </div>
+  </header>
 
-  <div id="search-container">
-    <input id="pac-input" type="text" placeholder="Buscar dirección en León, Gto">
-  </div>
+  <main>
+    <h2>📍 Ingresa tu dirección de entrega en León, Gto</h2>
 
-  <div id="map"></div>
+    <div id="search-container">
+      <input id="pac-input" type="text" placeholder="Buscar dirección en León, Gto">
+    </div>
 
-  <div class="info-direccion" id="info">
-    🏠 <strong>Dirección:</strong> <span id="direccion">No seleccionada</span><br>
-    📍 <strong>Latitud:</strong> <span id="lat">-</span> | <strong>Longitud:</strong> <span id="lng">-</span>
-  </div>
+    <div id="map"></div>
 
-  <button id="confirmar" class="btn-confirmar">✅ Confirmar dirección</button>
-  <p id="alerta" class="alerta"></p>
+    <div class="info-direccion" id="info">
+      🏠 <strong>Dirección:</strong> <span id="direccion">No seleccionada</span><br>
+      📍 <strong>Latitud:</strong> <span id="lat">-</span> | 
+      <strong>Longitud:</strong> <span id="lng">-</span>
+    </div>
+
+    <!-- 🔹 FORMULARIO OCULTO que se llenará con los datos del mapa -->
+    <form id="formDomicilio" action="confirmar_compra.php" method="POST">
+      <input type="hidden" name="tipo_entrega" value="domicilio">
+      <input type="hidden" name="direccion" id="inputDireccion">
+      <input type="hidden" name="latitud" id="inputLatitud">
+      <input type="hidden" name="longitud" id="inputLongitud">
+      <button type="submit" class="btn-confirmar">✅ Confirmar dirección</button>
+    </form>
+
+    <p id="alerta" class="alerta"></p>
+  </main>
 
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_api_key; ?>&libraries=places&callback=initMap">
@@ -160,22 +235,19 @@
       document.getElementById("lng").textContent = coordenadas.lng ? coordenadas.lng.toFixed(6) : "-";
     }
 
-    // 🔹 Confirmar dirección
-    document.getElementById("confirmar").addEventListener("click", () => {
+    // 🔹 Al enviar el formulario validamos que haya dirección
+    document.getElementById("formDomicilio").addEventListener("submit", function (e) {
       if (!direccionSeleccionada || !coordenadas.lat) {
+        e.preventDefault();
         document.getElementById("alerta").textContent = "⚠️ Primero selecciona una dirección válida en el mapa.";
         return;
       }
 
-      // Guardar datos en localStorage (para usarlos en ticket.php)
-      localStorage.setItem("direccion_entrega", direccionSeleccionada);
-      localStorage.setItem("lat_entrega", coordenadas.lat);
-      localStorage.setItem("lng_entrega", coordenadas.lng);
-
-      // Redirigir al ticket
-      window.location.href = "ticket.php";
+      // Llenamos los inputs ocultos antes de enviar
+      document.getElementById("inputDireccion").value = direccionSeleccionada;
+      document.getElementById("inputLatitud").value = coordenadas.lat;
+      document.getElementById("inputLongitud").value = coordenadas.lng;
     });
   </script>
-
 </body>
 </html>

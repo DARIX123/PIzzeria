@@ -274,13 +274,31 @@ function actualizarCarrito() {
 // -------------------------------
 // BOTÓN PAGAR
 // -------------------------------
-document.getElementById('btn-pagar').addEventListener('click', () => {
+document.getElementById('btn-pagar').addEventListener('click', async () => {
   if (carrito.length === 0) {
     alert('🛒 Agrega productos antes de continuar con tu orden.');
-  } else {
-    window.location.href = 'ordena.php';
+    return;
+  }
+
+  try {
+    const res = await fetch("guardar_carrito.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ carrito }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      window.location.href = "ordena.php";
+    } else {
+      alert("Error al guardar el carrito: " + (data.error || ""));
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("No se pudo guardar el carrito.");
   }
 });
+
 
 
 // -------------------------------

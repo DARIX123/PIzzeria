@@ -72,8 +72,8 @@ $resultado = $conn->query("SELECT * FROM compras WHERE usuario_id='$usuario_id' 
     <div class="logo"><span>🍕</span></div>
     <h1 class="titulo">8VA Rebanada</h1>
     <div class="acciones-header">
-        <a href="menu.php" class="btn-login">Menú</a>
-        <a href="cerrar_sesion.php" class="btn-login">Salir</a>
+        
+        <a href="logout.php" class="btn-login">Salir</a>
     </div>
 </header>
 

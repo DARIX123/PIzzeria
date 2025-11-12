@@ -56,9 +56,7 @@
         <section class="hero">
 
             <div class="texto-hero">
-                <h1 data-i18n="bienvenida">Aquí la pizza no se comparte...</h1>
-                <h1 data-i18n="conquista">Se conquista. Bienvenidos</h1>
-                <h1 data-i18n="rebanada">A la 8VA Rebanada</h1>
+                <h1 data-i18n="bienvenida">Aquí la pizza no se comparte, se conquista. Bienvenidos A la 8VA Rebanada</h1>
             </div>
 
             <div class="linea"></div>

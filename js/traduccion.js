@@ -5,7 +5,7 @@ const resources = {
       "menu": "Menú",
       "ordena": "Ordena",
       "contacto": "Contacto",
-      "bienvenida": ""
+      "bienvenida": "Aquí la pizza no se comparte, se conquista. Bienvenidos A la 8VA Rebanada"
     }
   },
   en: {
@@ -14,7 +14,7 @@ const resources = {
       "menu": "Menu",
       "ordena": "Order",
       "contacto": "Contact",
-      "bienvenida": "Here pizza is not shared..."
+      "bienvenida": "Here, pizza isn’t shared, it’s conquered. Welcome to the 8th Slice."
     }
   },
   fr: {
@@ -23,7 +23,7 @@ const resources = {
       "menu": "Menu",
       "ordena": "Commander",
       "contacto": "Contact",
-      "bienvenida": "Ici, la pizza n'est pas partagée..."
+      "bienvenida": "Ici, la pizza ne se partage pas, elle se conquiert. Bienvenue à la 8e Part"
     }
   },
   it: {
@@ -32,7 +32,7 @@ const resources = {
       "menu": "Menu",
       "ordena": "Ordina",
       "contacto": "Contatto",
-      "bienvenida": "Qui la pizza non si condivide..."
+      "bienvenida": " Qui la pizza non si condivide, si conquista. Benvenuti all’8ª Fetta."
     }
   },
   zh: {
@@ -41,7 +41,7 @@ const resources = {
       "menu": "菜单",
       "ordena": "订购",
       "contacto": "联系",
-      "bienvenida": "这里的披萨不可分享..."
+      "bienvenida": "在这里，披萨不是分享的，而是征服的。欢迎来到第8片"
     }
   },
   pt: {
@@ -50,7 +50,7 @@ const resources = {
       "menu": "Cardápio",
       "ordena": "Pedir",
       "contacto": "Contato",
-      "bienvenida": "Aqui a pizza não é compartilhada..."
+      "bienvenida": " Aqui a pizza não se divide, conquista-se. Bem-vindos à 8ª Fatia."
     }
   }
 };

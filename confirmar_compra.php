@@ -2,38 +2,21 @@
 session_start();
 include("API/conexion.php");
 
-if (!isset($_SESSION["usuario_id"])) {
-    header("Location: formulario.php");
-    exit;
+if (!isset($_POST['pedido_id'])) {
+    die("Pedido no válido.");
 }
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $usuario_id = $_SESSION["usuario_id"];
-    $tipo_entrega = $_POST["tipo_entrega"] ?? "domicilio";
-    $direccion = $_POST["direccion"] ?? "Ubicación personalizada";
-    $latitud = $_POST["latitud"] ?? null;
-    $longitud = $_POST["longitud"] ?? null;
-    $carrito = $_SESSION["carrito"] ?? [];
+$pedido_id = $_POST['pedido_id'];
+$direccion = $_POST['direccion'] ?? '';
+$lat = $_POST['latitud'] ?? '';
+$lng = $_POST['longitud'] ?? '';
 
-    if (!empty($carrito)) {
-        foreach ($carrito as $producto) {
-            $nombre = $producto["nombre"];
-            $cantidad = $producto["cantidad"];
-            $total = $producto["precio"] * $cantidad;
+// Actualizar todos los productos de ese pedido con la información de entrega
+$sql = "UPDATE compras 
+        SET tipo_entrega='Domicilio', direccion_entrega='$direccion', latitud='$lat', longitud='$lng'
+        WHERE pedido_id='$pedido_id'";
+$conn->query($sql);
 
-            $sql = "INSERT INTO compras (usuario_id, producto, cantidad, total, tipo_entrega, direccion_entrega, latitud, longitud)
-                    VALUES ('$usuario_id', '$nombre', '$cantidad', '$total', '$tipo_entrega', '$direccion', '$latitud', '$longitud')";
-            $conn->query($sql);
-        }
-
-        // Vaciar carrito al finalizar compra
-        unset($_SESSION["carrito"]);
-
-        // Redirigir al ticket
-        header("Location: ticket.php");
-        exit;
-    } else {
-        echo "Error: el carrito está vacío.";
-    }
-}
-?>
+// Redirigir al ticket
+header("Location: ticket.php");
+exit;

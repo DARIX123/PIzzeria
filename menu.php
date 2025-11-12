@@ -9,6 +9,7 @@
 
 <body>
 <header>
+  
     <?php session_start(); ?>
 
     <div class="logo">
@@ -19,6 +20,7 @@
 
     <div class="acciones-header">
         <div class="botones-superiores">
+          
             <?php if (isset($_SESSION["usuario"])): ?>
                 <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
                 <a href="logout.php" class="btn-login">Cerrar sesión</a>

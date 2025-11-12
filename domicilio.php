@@ -1,40 +1,41 @@
 <?php
 session_start();
 if (!isset($_SESSION["usuario"])) {
-  header("Location: formulario.php");
-  exit;
+    header("Location: formulario.php");
+    exit;
 }
 
+include __DIR__ . '/API/conexion.php';
 include __DIR__ . '/API/config.php';
-if (!empty($_SESSION['carrito'])) {
-    foreach ($_SESSION['carrito'] as $producto) {
-        $nombre = $producto['nombre'];
-        $precio = $producto['precio'];
-        $imagen = $producto['imagen'];
-        $cantidad = $producto['cantidad'];
-        $total_producto = $precio * $cantidad;
 
-        // Guardar en la base de datos cada producto
-        $query = "INSERT INTO compras (usuario, producto, imagen, cantidad, total, fecha)
-                  VALUES ('$usuario', '$nombre', '$imagen', '$cantidad', '$total_producto', NOW())";
-        mysqli_query($conexion, $query);
+$usuario_id = $_SESSION['usuario_id'];
 
-        // Mostrar en el ticket
-        echo "
-        <div class='ticket-item'>
-            <img src='img/$imagen' alt='$nombre'>
-            <h3>$nombre</h3>
-            <p>Cantidad: $cantidad</p>
-            <p>Precio unitario: $$precio</p>
-            <p>Total: $$total_producto</p>
-        </div>
-        ";
-    }
-
-    // Vaciar carrito al final
-    unset($_SESSION['carrito']);
+// Verificar que haya productos en el carrito
+if (empty($_SESSION['carrito'])) {
+    die("Carrito vacío.");
 }
 
+// 🔹 Generar un pedido_id único para esta compra (puede ser timestamp + usuario)
+$pedido_id = time() . '_' . $usuario_id;
+
+// Guardar los productos en la tabla compras
+foreach ($_SESSION['carrito'] as $producto) {
+    $nombre = $producto['nombre'];
+    $precio = $producto['precio'];
+    $cantidad = $producto['cantidad'];
+    $total_producto = $precio * $cantidad;
+
+    $query = "INSERT INTO compras 
+              (pedido_id, usuario_id, producto, cantidad, total, tipo_entrega, fecha_compra)
+              VALUES 
+              ('$pedido_id', '$usuario_id', '$nombre', '$cantidad', '$total_producto', 'domicilio', NOW())";
+    if (!$conn->query($query)) {
+        die("Error al guardar la compra: " . $conn->error);
+    }
+}
+
+// Vaciar carrito después de guardar
+unset($_SESSION['carrito']);
 ?>
 
 <!DOCTYPE html>
@@ -167,6 +168,7 @@ if (!empty($_SESSION['carrito'])) {
 
     <!-- 🔹 FORMULARIO OCULTO que se llenará con los datos del mapa -->
     <form id="formDomicilio" action="confirmar_compra.php" method="POST">
+      <input type="hidden" name="pedido_id" value="<?php echo $pedido_id; ?>">
       <input type="hidden" name="tipo_entrega" value="domicilio">
       <input type="hidden" name="direccion" id="inputDireccion">
       <input type="hidden" name="latitud" id="inputLatitud">

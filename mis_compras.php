@@ -111,3 +111,4 @@ $resultado = $conn->query("SELECT * FROM compras WHERE usuario_id='$usuario_id' 
 </footer>
 </body>
 </html>
+ 

@@ -18,5 +18,5 @@ $sql = "UPDATE compras
 $conn->query($sql);
 
 // Redirigir al ticket
-header("Location: ticket.php");
+header("Location: ticket.php?pedido_id=$pedido_id");
 exit;

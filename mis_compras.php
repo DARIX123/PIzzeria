@@ -109,6 +109,8 @@ $resultado = $conn->query("SELECT * FROM compras WHERE usuario_id='$usuario_id' 
     🍕 Hecho con amor y mucho queso
   </div>
 </footer>
+
+
 </body>
 </html>
  

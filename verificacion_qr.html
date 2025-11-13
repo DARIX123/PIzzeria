@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificación</title>
+</head>
+<body>
+  <h1>Esperando verificación...</h1>
+  <div id="estado">❌ No verificado</div>
+
+  <!-- Aquí se puede poner tu <model-viewer> para la animación -->
+  <div id="animacion" style="display:none;">
+    <model-viewer src="modelo.glb" auto-rotate camera-controls></model-viewer>
+  </div>
+
+  <script>
+    // Tomamos el userId desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+
+    if (!userId) {
+        document.getElementById("estado").textContent = "❌ Error: usuario no identificado";
+        throw new Error("No se encontró userId en la URL");
+    }
+
+    // Conexión WebSocket al servidor Node.js (usar tu URL ngrok)
+    const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev");
+
+    socket.onopen = () => {
+        console.log("Conectado al servidor WebSocket");
+        // Avisar al servidor que este usuario abrió la página
+        socket.send("usuario_abierto:" + userId);
+    };
+
+    socket.onmessage = (event) => {
+        console.log("Mensaje recibido:", event.data);
+        // Cuando el servidor envíe la confirmación de verificación
+        if(event.data === "verificado:" + userId) {
+            document.getElementById("estado").textContent = "✅ Verificado";
+            // Mostrar animación
+            document.getElementById("animacion").style.display = "block";
+        }
+    };
+
+    socket.onerror = (err) => {
+        console.error("Error WebSocket:", err);
+    };
+
+    socket.onclose = () => {
+        console.log("Conexión WebSocket cerrada");
+    };
+  </script>
+</body>
+</html>

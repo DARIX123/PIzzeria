@@ -2,6 +2,9 @@
 <html lang="es">
 
 <head>
+    <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Contacto - 8VA Rebanada</title>
     <link rel="stylesheet" href="css/estilo_ordena.css">
@@ -101,26 +104,34 @@
             <div class="botones-superiores">
                 <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
+                <select id="select-idioma">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+    <option value="it">Italiano</option>
+    <option value="zh">中文</option>
+    <option value="pt">Português</option>
+</select>
             </div>
         </div>
     </header>
 
     <!-- 🔹 BOTONES -->
     <div class="botones-inferiores">
-        <a href="index.php" class="btn-login">Inicio</a>
-        <a href="menu.php" class="btn-login">Menú</a>
-        <a href="ordena.php" class="btn-login ">Ordena</a> <!-- 🔸 Botón activo -->
-        <a href="contacto.php" class="btn-login">Contacto</a>
+        <a href="index.php" class="btn-login" data-i18n="inicio">Inicio</a>
+        <a href="menu.php" class="btn-login" data-i18n="menu">Menú</a>
+        <a href="ordena.php" class="btn-login " data-i18n="ordena">Ordena</a> <!-- 🔸 Botón activo -->
+        <a href="contacto.php" class="btn-login" data-i18n="contacto">Contacto</a>
     </div>
 
     <!-- 🔹 SECCIÓN CON FONDO -->
     <main>
-        <h2 class="titulo-tienda">ELIGE TU TIENDA</h2>
+        <h2 class="titulo-tienda" data-i18n="titulo-tienda">ELIGE TU TIENDA</h2>
         <div class="contenedor-preferencia">
-    <h3>¿CÓMO PREFIERES RECIBIR TU PIZZA?</h3>
+    <h3 data-i18n="contenedor-preferencia">¿CÓMO PREFIERES RECIBIR TU PIZZA?</h3>
     <hr>
    <div class="contenedor-preferencia">
-    <h3>¿CÓMO PREFIERES RECIBIR TU PIZZA?</h3>
+    
     <hr>
     <div class="contenido-preferencia">
         <div class="opciones-entrega">
@@ -131,13 +142,13 @@
     </button>
 </a>
 
-                <p>A DOMICILIO</p>
+                <p data-i18n="opcion"> A DOMICILIO</p>
             </div>
             <div class="opcion">
                 <button class="btn-opcion">
                     <img src="img/tienda.jpg" alt="En tienda">
                 </button>
-                <p>EN TIENDA</p>
+                <p data-i18n="opcion1">EN TIENDA</p>
             </div>
         
 
@@ -160,7 +171,7 @@
         </div>
     </footer>
     
-
+<script src="js/traduccionordena.js"></script>
 </body>
 
 </html>

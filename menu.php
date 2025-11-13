@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Menú | 8VA ReBaNaDa</title>
     <link rel="stylesheet" href="css/estilo_menu.css">
@@ -37,7 +40,7 @@
 
 <main>
     <div class="botones-inferiores">
-            <a href="index.php" class="btn-login">Inicio</a>
+            <a href="index.php" class="btn-login" >Inicio</a>
             <a href="menu.php" class="btn-login">Menu</a>
             <a href="ordena.php" class="btn-login">Ordena</a>
             <a href="contacto.php" class="btn-login">Contacto</a>

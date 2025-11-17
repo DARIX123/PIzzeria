@@ -5,7 +5,8 @@ const resources = {
       "menu": "Menú",
       "ordena": "Ordena",
       "contacto": "Contacto",
-      "bienvenida": "Aquí la pizza no se comparte, se conquista. Bienvenidos A la 8VA Rebanada"
+      "bienvenida": "Aquí la pizza no se comparte, se conquista. Bienvenidos A la 8VA Rebanada",
+      "btn-login": "Iniciar Sesión",
     }
   },
   en: {
@@ -14,7 +15,8 @@ const resources = {
       "menu": "Menu",
       "ordena": "Order",
       "contacto": "Contact",
-      "bienvenida": "Here, pizza isn’t shared, it’s conquered. Welcome to the 8th Slice."
+      "bienvenida": "Here, pizza isn’t shared, it’s conquered. Welcome to the 8th Slice.",
+      "btn-login": "Log in",
     }
   },
   fr: {
@@ -23,7 +25,8 @@ const resources = {
       "menu": "Menu",
       "ordena": "Commander",
       "contacto": "Contact",
-      "bienvenida": "Ici, la pizza ne se partage pas, elle se conquiert. Bienvenue à la 8e Part"
+      "bienvenida": "Ici, la pizza ne se partage pas, elle se conquiert. Bienvenue à la 8e Part",
+      "btn-login": "Se connecter",
     }
   },
   it: {
@@ -32,7 +35,8 @@ const resources = {
       "menu": "Menu",
       "ordena": "Ordina",
       "contacto": "Contatto",
-      "bienvenida": " Qui la pizza non si condivide, si conquista. Benvenuti all’8ª Fetta."
+      "bienvenida": " Qui la pizza non si condivide, si conquista. Benvenuti all’8ª Fetta.",
+      "btn-login": "Accedi",
     }
   },
   zh: {
@@ -41,7 +45,8 @@ const resources = {
       "menu": "菜单",
       "ordena": "订购",
       "contacto": "联系",
-      "bienvenida": "在这里，披萨不是分享的，而是征服的。欢迎来到第8片"
+      "bienvenida": "在这里，披萨不是分享的，而是征服的。欢迎来到第8片",
+      "btn-login": "登录",
     }
   },
   pt: {
@@ -50,7 +55,8 @@ const resources = {
       "menu": "Cardápio",
       "ordena": "Pedir",
       "contacto": "Contato",
-      "bienvenida": " Aqui a pizza não se divide, conquista-se. Bem-vindos à 8ª Fatia."
+      "bienvenida": " Aqui a pizza não se divide, conquista-se. Bem-vindos à 8ª Fatia.",
+      "btn-login": "Entrar",
     }
   }
 };

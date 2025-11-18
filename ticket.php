@@ -18,7 +18,7 @@ if (!$pedido_id) {
 }
 
 // 🔹 Obtener todos los productos de este pedido
-$resultado = $conn->query("
+$resultado = $conn->query( "
     SELECT c.*, p.imagen 
     FROM compras c 
     LEFT JOIN productos p ON c.producto = p.nombre 
@@ -29,7 +29,33 @@ $resultado = $conn->query("
 if ($resultado->num_rows === 0) {
     die("No hay productos para este pedido.");
 }
+
+// ====================================
+// GENERAR QR CON NGROK + pedido_id
+// ====================================
+
+require_once __DIR__ . "/phpqrcode/qrlib.php";
+
+// tu URL pública actual de NGROK
+$ngrokHost = "https://multilobular-guarded-michelle.ngrok-free.dev"; // <-- la cambias cada que abras ngrok
+
+// crear enlace del pedido
+$qrUrl = $ngrokHost . "/pizzeria/ver_pedido.php?pedido_id=" . urlencode($pedido_id);
+
+// carpeta para guardar QRs
+$dir = __DIR__ . "/qrs/";
+if (!file_exists($dir)) {
+    mkdir($dir, 0777, true);
+}
+
+$filename = $dir . "pedido_" . $pedido_id . ".png";
+
+// generar QR
+QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
+
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -62,6 +88,12 @@ if ($resultado->num_rows === 0) {
 
 <main>
     <h1>🧾 Ticket de Compra</h1>
+    <div style="text-align:center; margin:20px;">
+    <h3>Escanea tu código QR</h3>
+    <img src="qrs/pedido_<?php echo $pedido_id; ?>.png"
+         style="width:200px; height:200px;">
+</div>
+
 
     <table>
         <tr>

@@ -102,7 +102,13 @@
 
         <div class="acciones-header">
             <div class="botones-superiores">
+                <?php if (isset($_SESSION["usuario"])): ?>
+                <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
+                <a href="logout.php" class="btn-login">Cerrar sesión</a>
+            <?php else: ?>
                 <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+            <?php endif; ?>
+                
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
                 <select id="select-idioma">
     <option value="es">Español</option>

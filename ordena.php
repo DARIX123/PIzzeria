@@ -94,6 +94,8 @@
 <body>
     <!-- 🔹 HEADER -->
     <header>
+        <?php session_start(); ?>
+
         <div class="logo">
             <span>🍕</span>
         </div>

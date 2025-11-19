@@ -521,3 +521,127 @@ button:hover {
     align-items: center;
   }
 }
+
+/* ------------------ BOTÓN CONFIG ------------------ */
+.btn-config {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: rgb(175, 2, 2);
+    padding: 5px 10px;
+    transition: transform .2s;
+}
+.btn-config:hover {
+    transform: scale(1.2);
+}
+
+/* ------------------ MODAL ------------------ */
+.modal-config {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    color: #333;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+/* Animación elegante */
+.animar-modal {
+    animation: popup 0.28s ease;
+}
+
+@keyframes popup {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.config-opcion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 18px 0;
+    font-size: 18px;
+}
+
+/* Botón cerrar */
+.btn-cerrar {
+    background: #ff4747;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+.btn-cerrar:hover {
+    opacity: 0.85;
+}
+
+/* ------------------ SWITCH (estilo iPhone) ------------------ */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+.switch input { display: none; }
+
+.slider {
+    position: absolute;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4caf50;
+}
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* ---- MODO OSCURO ---- */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: white !important;
+}
+body.dark-mode header,
+body.dark-mode footer {
+    background: #1f1f1f !important;
+}
+
+/* ---- MODO LECTURA ---- */
+body.read-mode * {
+    font-size: 20px !important;
+    line-height: 1.7 !important;
+}

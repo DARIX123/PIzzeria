@@ -12,6 +12,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
+<!-- MODAL DE CONFIGURACIÓN -->
+<div id="modal-config" class="modal-config">
+    <div class="modal-content animar-modal">
+        <h2>⚙️ Configuración</h2>
+
+        <div class="config-opcion">
+            <span>🌍 Idioma:</span>
+            <select id="select-idioma">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="it">Italiano</option>
+                <option value="zh">中文</option>
+                <option value="pt">Português</option>
+            </select>
+        </div>
+
+        <div class="config-opcion">
+            <span>🌙 Modo oscuro:</span>
+            <label class="switch">
+                <input type="checkbox" id="modo-oscuro">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="config-opcion">
+            <span>📖 Modo lectura:</span>
+            <label class="switch">
+                <input type="checkbox" id="modo-lectura">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <button id="cerrar-config" class="btn-cerrar">Cerrar</button>
+    </div>
+</div>
+
+
 <body>
     <header>
         <?php session_start(); ?>
@@ -24,21 +62,16 @@
 
         <!-- Contenedor de la parte derecha -->
         <div class="botones-superiores">
+            <button id="btn-config" class="btn-config">⋮</button>
     <?php if (isset($_SESSION["usuario"])): ?>
         <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
         <a href="logout.php" class="btn-login">Cerrar sesión</a>
     <?php else: ?>
         <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
     <?php endif; ?>
+
     <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
-    <select id="select-idioma">
-    <option value="es">Español</option>
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="it">Italiano</option>
-    <option value="zh">中文</option>
-    <option value="pt">Português</option>
-</select>
+    
 
 </div>
 

@@ -3,8 +3,8 @@
 
 <head>
     <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
-<script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
-<script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 
     <meta charset="UTF-8">
     <title>Pizzeria</title>
@@ -15,10 +15,10 @@
 <!-- MODAL DE CONFIGURACIÓN -->
 <div id="modal-config" class="modal-config">
     <div class="modal-content animar-modal">
-        <h2>⚙️ Configuración</h2>
+        <h2> Configuración</h2>
 
         <div class="config-opcion">
-            <span>🌍 Idioma:</span>
+            <span> Idioma:</span>
             <select id="select-idioma">
                 <option value="es">Español</option>
                 <option value="en">English</option>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="config-opcion">
-            <span>🌙 Modo oscuro:</span>
+            <span> Modo oscuro:</span>
             <label class="switch">
                 <input type="checkbox" id="modo-oscuro">
                 <span class="slider"></span>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="config-opcion">
-            <span>📖 Modo lectura:</span>
+            <span> Modo lectura:</span>
             <label class="switch">
                 <input type="checkbox" id="modo-lectura">
                 <span class="slider"></span>

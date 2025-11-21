@@ -5,6 +5,9 @@
     <title>Contacto - 8VA Rebanada</title>
     <link rel="stylesheet" href="css/estilo_index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -36,10 +39,10 @@
 
     <!-- 🔹 BOTONES INFERIORES -->
     <div class="botones-inferiores">
-        <a href="index.php" class="btn-login">Inicio</a>
-        <a href="menu.php" class="btn-login">Menú</a>
-        <a href="ordena.php" class="btn-login">Ordena</a>
-        <a href="contacto.php" class="btn-login activo">Contacto</a>
+        <a href="index.php" class="btn-login" data-i18n="inicio">Inicio</a>
+        <a href="menu.php" class="btn-login" data-i18n="menu">Menú</a>
+        <a href="ordena.php" class="btn-login" data-i18n="ordena">Ordena</a>
+        <a href="contacto.php" class="btn-login activo" data-i18n="contacto">Contacto</a>
     </div>
 
     <div class="contenedor-linea">
@@ -88,7 +91,7 @@
         </div>
     </footer>
     
-
+<script src="js/traduccion.js"></script>
 </body>
 </html>
 

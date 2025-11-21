@@ -36,13 +36,14 @@ if ($resultado->num_rows === 0) {
 
 require_once __DIR__ . "/phpqrcode/qrlib.php";
 
-// tu URL pública actual de NGROK
-$ngrokHost = "https://multilobular-guarded-michelle.ngrok-free.dev"; // <-- la cambias cada que abras ngrok
+// 👉 URL pública de Ngrok (SIN espacios)
+$ngrokHost = "https://multilobular-guarded-michelle.ngrok-free.dev";
 
-// crear enlace del pedido
-$qrUrl = $ngrokHost . "/pizzeria/ver_pedido.php?pedido_id=" . urlencode($pedido_id);
+// 👉 ESTA es la URL correcta que Node sí reconoce
+$qrUrl = $ngrokHost . "/pizzeria/pizzeria_front/ver_pedido.php?pedido_id=" . $pedido_id;
 
-// carpeta para guardar QRs
+
+// Carpeta donde se guardan los QRs
 $dir = __DIR__ . "/qrs/";
 if (!file_exists($dir)) {
     mkdir($dir, 0777, true);
@@ -50,13 +51,9 @@ if (!file_exists($dir)) {
 
 $filename = $dir . "pedido_" . $pedido_id . ".png";
 
-// generar QR
+// Crear QR
 QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
-
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -65,35 +62,41 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
     <title>Ticket de Compra - 8VA ReBaNaDa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilo_index.css">
+    <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
+
+
     <style>
         main { text-align: center; padding: 40px 20px; background: #fafafa; }
         h1 { color: #b22222; }
-        table { margin: 20px auto; border-collapse: collapse; width: 90%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+        table { margin: 20px auto; border-collapse: collapse; width: 90%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         th, td { border: 1px solid #ddd; padding: 12px; }
         th { background: #b22222; color: white; }
         td img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; }
-        .boton-regreso { margin-top: 25px; display: inline-block; background: #b22222; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s ease; }
+        .boton-regreso { margin-top: 25px; display: inline-block; background: #b22222; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; }
         .boton-regreso:hover { background: #ff4444; }
     </style>
 </head>
+
 <body>
 
-<!-- 🔹 Header sin carrito ni login -->
 <header>
-    <div class="logo">
-        <span>🍕</span>
-    </div>
+    <div class="logo"><span>🍕</span></div>
     <h1 class="titulo">8VA ReBaNaDa</h1>
 </header>
 
 <main>
-    <h1>🧾 Ticket de Compra</h1>
-    <div style="text-align:center; margin:20px;">
-    <h3>Escanea tu código QR</h3>
-    <img src="qrs/pedido_<?php echo $pedido_id; ?>.png"
-         style="width:200px; height:200px;">
-</div>
 
+    <h1>🧾 Ticket de Compra</h1>
+
+    <div style="text-align:center; margin:20px;">
+        <h3>Escanea tu código QR</h3>
+
+        <!-- Mostrar QR generado -->
+        <img src="qrs/pedido_<?php echo $pedido_id; ?>.png"
+             style="width:200px; height:200px;">
+    </div>
 
     <table>
         <tr>
@@ -104,19 +107,19 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
             <th>Tipo de entrega</th>
             <th>Dirección</th>
         </tr>
-        <?php
-        while ($fila = $resultado->fetch_assoc()) {
+
+        <?php while ($fila = $resultado->fetch_assoc()): 
             $imagen = !empty($fila['imagen']) ? $fila['imagen'] : 'img/default.png';
-            echo "<tr>
-                    <td><img src='{$imagen}' alt='Producto'></td>
-                    <td>" . htmlspecialchars($fila['producto']) . "</td>
-                    <td>{$fila['cantidad']}</td>
-                    <td>\${$fila['total']}</td>
-                    <td>{$fila['tipo_entrega']}</td>
-                    <td>" . htmlspecialchars($fila['direccion_entrega']) . "</td>
-                  </tr>";
-        }
         ?>
+        <tr>
+            <td><img src="<?php echo $imagen; ?>" alt="Producto"></td>
+            <td><?php echo htmlspecialchars($fila['producto']); ?></td>
+            <td><?php echo $fila['cantidad']; ?></td>
+            <td>$<?php echo $fila['total']; ?></td>
+            <td><?php echo $fila['tipo_entrega']; ?></td>
+            <td><?php echo htmlspecialchars($fila['direccion_entrega']); ?></td>
+        </tr>
+        <?php endwhile; ?>
     </table>
 
     <a href="mis_compras.php" class="boton-regreso">📦 Ver mis compras</a>
@@ -131,5 +134,8 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
         <p>LOMAS DE LOS CASTILLOS</p>
     </div>
 </footer>
+
+<script src="js/traduccion.js"></script>
+
 </body>
 </html>

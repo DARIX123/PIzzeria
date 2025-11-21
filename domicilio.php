@@ -45,6 +45,10 @@ unset($_SESSION['carrito']);
   <title>Domicilio - 8VA ReBaNaDa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/estilo_index.css">
+  <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
+  <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
+
 
   <style>
     body {
@@ -179,6 +183,7 @@ unset($_SESSION['carrito']);
     <p id="alerta" class="alerta"></p>
   </main>
 
+  <script src="js/traduccion.js"></script>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_api_key; ?>&libraries=places&callback=initMap">
   </script>

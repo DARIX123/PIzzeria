@@ -604,3 +604,47 @@ button:hover {
     font-weight: bold;
     font-family: 'Georgia', serif;
 }
+
+/* ============================
+   MODO OSCURO GLOBAL
+============================ */
+
+body.dark-mode {
+    background-color: #1c1c1c !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode a {
+    color: #ffffff !important;
+}
+
+body.dark-mode header {
+    background-color: #111 !important;
+}
+
+body.dark-mode .pie-pagina {
+    background-color: #111 !important;
+}
+
+body.dark-mode .tarjeta-producto {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #333 !important;
+    color: #fff !important;
+    border-color: #555 !important;
+}
+
+body.dark-mode .btn-cat {
+    background-color: #333 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .panel-carrito {
+    background-color: #222 !important;
+    color: #fff !important;
+}

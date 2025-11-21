@@ -5,7 +5,7 @@
     <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Menú | 8VA ReBaNaDa</title>
+    <title data-i18n="titulo-menu">Menú | 8VA ReBaNaDa</title>
     <link rel="stylesheet" href="css/estilo_menu.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -25,12 +25,14 @@
         <div class="botones-superiores">
           
             <?php if (isset($_SESSION["usuario"])): ?>
-                <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
-                <a href="logout.php" class="btn-login">Cerrar sesión</a>
+                <span class="nombre-usuario"">👋 Hola, </span>
+                <?php echo htmlspecialchars($_SESSION["usuario"]); ?>
+                <a href="logout.php" class="btn-login" data-i18n="cerrar-sesion">Cerrar sesión</a>
             <?php else: ?>
-                <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+                <a href="formulario.php" class="btn-login" data-i18n="btn-login">Iniciar Sesión</a>
             <?php endif; ?>
-            <button class="btn-carrito">
+
+            <button class="btn-carrito" >
                 <img src="img/carro.png" alt="carrito">
                 <span id="contador-carrito">0</span>
             </button>
@@ -39,44 +41,46 @@
 </header>
 
 <main>
+
+    <!-- 🔹 MENÚ INFERIOR -->
     <div class="botones-inferiores">
-            <a href="index.php" class="btn-login" >Inicio</a>
-            <a href="menu.php" class="btn-login">Menu</a>
-            <a href="ordena.php" class="btn-login">Ordena</a>
-            <a href="contacto.php" class="btn-login">Contacto</a>
-        </div>
+        <a href="index.php" class="btn-login" data-i18n="inicio">Inicio</a>
+        <a href="menu.php" class="btn-login" data-i18n="menu">Menú</a>
+        <a href="ordena.php" class="btn-login" data-i18n="ordena">Ordena</a>
+        <a href="contacto.php" class="btn-login" data-i18n="contacto">Contacto</a>
+    </div>
 
     <div class="linea2"></div>
 
     
-    <!-- 🔹 BARRA DE BUSQUEDA CON MICRO -->
+    <!-- 🔹 BARRA DE BUSQUEDA -->
     <div class="buscador-contenedor">
-        <input type="text" id="busqueda" placeholder="Buscar producto...">
+        <input type="text" id="busqueda" placeholder="Buscar producto..." data-i18n="[placeholder]buscar-producto">
         <button id="btn-voz">🎤</button>
     </div>
 
     <!-- 🔹 BOTONES DE CATEGORÍA -->
     <div class="categorias">
-        <button class="btn-cat" data-cat="todo">Ver todo</button>
-        <button class="btn-cat" data-cat="pizzas">Pizzas</button>
-        <button class="btn-cat" data-cat="pollo">Pollo</button>
-        <button class="btn-cat" data-cat="bebidas">Bebidas</button>
-        <button class="btn-cat" data-cat="postres">Postres</button>
+        <button class="btn-cat" data-cat="todo" data-i18n="ver-todo">Ver todo</button>
+        <button class="btn-cat" data-cat="pizzas" data-i18n="pizzas">Pizzas</button>
+        <button class="btn-cat" data-cat="pollo" data-i18n="pollo">Pollo</button>
+        <button class="btn-cat" data-cat="bebidas" data-i18n="bebidas">Bebidas</button>
+        <button class="btn-cat" data-cat="postres" data-i18n="postres">Postres</button>
     </div>
-
-    
 
     <!-- 🔹 CONTENEDOR DE PRODUCTOS -->
     <div id="productos" class="contenedor-productos"></div>
     
 </main>
 
+<!-- PANEL CARRITO -->
 <div id="panel-carrito" class="panel-carrito">
-    <h2>TU CARRO REBANADO!!!</h2>
+    <h2 data-i18n="tu-carro-rebanado">TU CARRO REBANADO!!!</h2>
     <div id="lista-carrito"></div>
     <div class="total-carrito">
-        <p>Total: <span id="total-precio">$0.00</span></p>
-        <button id="btn-pagar">PAGAR</button>
+        <p data-i18n="total">Total:</p> 
+        <span id="total-precio">$0.00</span>
+        <button id="btn-pagar" data-i18n="pagar">PAGAR</button>
     </div>
 </div>
 
@@ -85,15 +89,19 @@
 
 <footer class="pie-pagina">
     <div class="footer-izq">
-        <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
+        <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank" data-i18n="ver-ubicacion">📍 Ver ubicación</a>
     </div>
     <div class="footer-der">
-        <p>ALAMEDAS DE VILLAFRANCA</p>
-        <p>LOMAS DE LOS CASTILLOS</p>
+        <p data-i18n="ubicacion1">ALAMEDAS DE VILLAFRANCA</p>
+        <p data-i18n="ubicacion2">LOMAS DE LOS CASTILLOS</p>
     </div>
 </footer>
 
+<?php include 'config-global.php'; ?>
+<script src="js/traduccion.js"></script>
+
 <script>
+  
 const contenedor = document.getElementById('productos');
 const inputBusqueda = document.getElementById('busqueda');
 const botonesCat = document.querySelectorAll('.btn-cat');

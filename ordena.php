@@ -112,14 +112,7 @@
             <?php endif; ?>
                 
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
-                <select id="select-idioma">
-    <option value="es">Español</option>
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="it">Italiano</option>
-    <option value="zh">中文</option>
-    <option value="pt">Português</option>
-</select>
+       
             </div>
         </div>
     </header>

@@ -30,9 +30,7 @@ if ($resultado->num_rows === 0) {
     die("No hay productos para este pedido.");
 }
 
-// ====================================
-// GENERAR QR CON NGROK + pedido_id
-// ====================================
+
 
 require_once __DIR__ . "/phpqrcode/qrlib.php";
 
@@ -45,7 +43,8 @@ $tokenQuery = $conn->query("SELECT token_entrega FROM compras WHERE pedido_id='$
 $tokenData = $tokenQuery->fetch_assoc();
 $token = $tokenData['token_entrega'] ?? '';
 
-$qrUrl = $ngrokHost . "/pizzeria/pizzeria_front/verificar_pedido.php?pedido_id=$pedido_id&token=$token";
+$qrUrl = $ngrokHost . "/verificar_pedido.php?pedido_id=$pedido_id&token=$token";
+
 
 
 
@@ -129,7 +128,7 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
         <?php endwhile; ?>
     </table>
 
-    <a href="mis_compras.php" class="boton-regreso">📦 Ver mis compras</a>
+   
 </main>
 
 <footer class="pie-pagina">
@@ -141,6 +140,29 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
         <p>LOMAS DE LOS CASTILLOS</p>
     </div>
 </footer>
+
+<script>
+// Conexión WebSocket al servidor Node.js
+const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev/ws");
+
+socket.onopen = () => {
+    console.log("🔵 Conectado WebSocket desde PC");
+    // Avisar al servidor qué pedido se está mostrando
+    socket.send("pedido_abierto:<?php echo $pedido_id; ?>");
+};
+
+socket.onmessage = (event) => {
+    console.log("📩 Mensaje recibido:", event.data);
+
+    if (event.data === "pedido_actualizado:<?php echo $pedido_id; ?>") {
+        // Recargar la página para mostrar la info actualizada
+        console.log("Redirigiendo a ver_pedido.php");
+        window.location.href = "ver_pedido.php?pedido_id=<?php echo $pedido_id; ?>";
+    }
+};
+
+</script>
+
 
 <script src="js/traduccion.js"></script>
 

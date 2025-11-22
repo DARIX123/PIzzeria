@@ -40,7 +40,14 @@ require_once __DIR__ . "/phpqrcode/qrlib.php";
 $ngrokHost = "https://multilobular-guarded-michelle.ngrok-free.dev";
 
 // 👉 ESTA es la URL correcta que Node sí reconoce
-$qrUrl = $ngrokHost . "/pizzeria/pizzeria_front/ver_pedido.php?pedido_id=" . $pedido_id;
+// 🔹 Necesitamos obtener el token desde la BD
+$tokenQuery = $conn->query("SELECT token_entrega FROM compras WHERE pedido_id='$pedido_id' LIMIT 1");
+$tokenData = $tokenQuery->fetch_assoc();
+$token = $tokenData['token_entrega'] ?? '';
+
+$qrUrl = $ngrokHost . "/pizzeria/pizzeria_front/verificar_pedido.php?pedido_id=$pedido_id&token=$token";
+
+
 
 
 // Carpeta donde se guardan los QRs

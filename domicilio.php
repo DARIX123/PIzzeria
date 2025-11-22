@@ -15,8 +15,11 @@ if (empty($_SESSION['carrito'])) {
     die("Carrito vacío.");
 }
 
-// 🔹 Generar un pedido_id único para esta compra (puede ser timestamp + usuario)
+// 🔹 Generar un pedido_id único
 $pedido_id = time() . '_' . $usuario_id;
+
+// 🔹 Generar token único para este pedido
+$token_entrega = bin2hex(random_bytes(16)); // 32 caracteres seguros
 
 // Guardar los productos en la tabla compras
 foreach ($_SESSION['carrito'] as $producto) {
@@ -26,9 +29,10 @@ foreach ($_SESSION['carrito'] as $producto) {
     $total_producto = $precio * $cantidad;
 
     $query = "INSERT INTO compras 
-              (pedido_id, usuario_id, producto, cantidad, total, tipo_entrega, fecha_compra)
+              (pedido_id, usuario_id, producto, cantidad, total, tipo_entrega, fecha_compra, token_entrega)
               VALUES 
-              ('$pedido_id', '$usuario_id', '$nombre', '$cantidad', '$total_producto', 'domicilio', NOW())";
+              ('$pedido_id', '$usuario_id', '$nombre', '$cantidad', '$total_producto', 'domicilio', NOW(), '$token_entrega')";
+
     if (!$conn->query($query)) {
         die("Error al guardar la compra: " . $conn->error);
     }
@@ -37,6 +41,7 @@ foreach ($_SESSION['carrito'] as $producto) {
 // Vaciar carrito después de guardar
 unset($_SESSION['carrito']);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

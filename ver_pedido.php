@@ -148,7 +148,7 @@ if ($res->num_rows === 0) {
 
 <script>
 // Conexión WebSocket al servidor NGROK (WSS)
-const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev");
+const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev/ws");
 
 socket.onopen = () => {
     console.log("🔵 Conectado WebSocket");
@@ -160,12 +160,11 @@ socket.onopen = () => {
 socket.onmessage = (event) => {
     console.log("📩 Mensaje:", event.data);
 
-    if (event.data.includes("verificado")) {
-        // Mostrar animación
+    // Solo reaccionar si el pedido coincide
+    if (event.data === "verificado:<?php echo $pedido_id; ?>") {
         const animacion = document.getElementById("entregado");
         animacion.classList.add("mostrar");
 
-        // Ocultar después de 3 segundos
         setTimeout(() => {
             animacion.classList.remove("mostrar");
         }, 3000);

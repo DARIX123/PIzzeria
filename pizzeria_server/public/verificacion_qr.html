@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Verificación de Pedido</title>
+</head>
+<body>
+  <h1>Escaneando pedido...</h1>
+  <div id="estado">⏳ Esperando verificación del repartidor...</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const pedidoId = urlParams.get('pedido_id');
+
+  if (!pedidoId) {
+      document.getElementById("estado").textContent = "❌ Error: pedido no identificado";
+      throw new Error("No se encontró pedido_id en la URL");
+  }
+
+  const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev");
+
+  socket.onopen = () => {
+      console.log("🟢 WebSocket conectado");
+      socket.send("usuario_abierto:" + pedidoId);
+  };
+
+  socket.onmessage = (event) => {
+      console.log("📩 Mensaje:", event.data);
+
+      if (event.data.includes("verificado")) {
+          document.getElementById("estado").textContent = "✅ Pedido verificado";
+
+          setTimeout(() => {
+              window.location.href = "/pizzeria_front/pedido_completado.php?pedido_id=" + pedidoId;
+          }, 1500);
+      }
+  };
+</script>
+
+</body>
+</html>

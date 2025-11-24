@@ -8,109 +8,45 @@ if (!isset($_SESSION["usuario"])) {
 }
 
 $usuario_id = $_SESSION["usuario_id"];
-$resultado = $conn->query("SELECT * FROM compras WHERE usuario_id='$usuario_id' ORDER BY fecha_compra DESC");
-?>
 
+// Solo pedidos entregados
+$res = $conn->query("
+    SELECT DISTINCT pedido_id
+    FROM compras
+    WHERE usuario_id='$usuario_id' AND estado='entregado'
+    ORDER BY pedido_id DESC
+");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mis Compras - 8VA Rebanada</title>
-    <link rel="stylesheet" href="css/estilo_index.css">
-    <style>
-        .compras-container {
-            max-width: 900px;
-            margin: 150px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        .compras-container h1 {
-            color: #b22222;
-            text-align: center;
-            font-family: "Poppins", sans-serif;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 1rem;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #b22222;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #ffe5e5;
-        }
-        .btn-volver {
-            display: inline-block;
-            background: #b22222;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: background 0.3s;
-            margin-top: 20px;
-        }
-        .btn-volver:hover {
-            background: #d33a2c;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Mis Compras</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; background:#fff8f0; margin:0; padding:0; }
+header { background:#b22222; color:white; text-align:center; padding:15px; }
+header h1 { margin:0; font-size:1.5rem; }
+.compras { padding:20px; display:flex; flex-direction:column; align-items:center; }
+.compra { background:white; padding:15px 20px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1); width:90%; max-width:400px; margin:10px 0; display:flex; justify-content:space-between; align-items:center; }
+.compra a { text-decoration:none; background:#b22222; color:white; padding:8px 15px; border-radius:6px; font-weight:bold; transition:0.3s; }
+.compra a:hover { background:#ff4444; }
+</style>
 </head>
 <body>
+
 <header>
-    <div class="logo"><span>🍕</span></div>
-    <h1 class="titulo">8VA Rebanada</h1>
-    <div class="acciones-header">
-        
-        <a href="logout.php" class="btn-login">Salir</a>
-    </div>
+    <h1>Mis Compras Entregadas</h1>
 </header>
 
-<div class="compras-container">
-    <h1>Mis Compras</h1>
-    <table>
-        <tr>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Entrega</th>
-            <th>Fecha</th>
-        </tr>
-        <?php while ($fila = $resultado->fetch_assoc()): ?>
-            <tr>
-                <td><?= htmlspecialchars($fila['producto']) ?></td>
-                <td><?= $fila['cantidad'] ?></td>
-                <td>$<?= $fila['total'] ?></td>
-                <td><?= $fila['tipo_entrega'] ?></td>
-                <td><?= $fila['fecha_compra'] ?></td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
-
-    <center><a href="menu.php" class="btn-volver">← Volver al Menú</a></center>
+<div class="compras">
+<?php while($f = $res->fetch_assoc()): ?>
+    <div class="compra">
+        <span>Pedido #<?php echo $f['pedido_id']; ?></span>
+        <a href="ticket.php?pedido_id=<?php echo $f['pedido_id']; ?>">Ver Ticket</a>
+    </div>
+<?php endwhile; ?>
 </div>
-
-<footer class="pie-pagina">
-  <div class="footer-izq">
-    © 2025 8VA Rebanada. Todos los derechos reservados.
-  </div>
-  <div class="footer-der">
-    🍕 Hecho con amor y mucho queso
-  </div>
-</footer>
-
 
 </body>
 </html>
- 

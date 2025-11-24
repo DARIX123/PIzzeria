@@ -5,8 +5,8 @@
     <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title data-i18n="titulo-menu">Menú | 8VA ReBaNaDa</title>
-    <link rel="stylesheet" href="css/estilo_menu.css">
+    <title>Menú | 8VA ReBaNaDa</title>
+    <link rel="stylesheet" href="css/estilo_menu.css?v=<?php echo time(); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -75,7 +75,7 @@
 
 <!-- PANEL CARRITO -->
 <div id="panel-carrito" class="panel-carrito">
-    <h2 data-i18n="tu-carro-rebanado">TU CARRO REBANADO!!!</h2>
+    <h2 data-i18n="tu carro rebanado">TU CARRO REBANADO!!!</h2>
     <div id="lista-carrito"></div>
     <div class="total-carrito">
         <p data-i18n="total">Total:</p> 
@@ -97,7 +97,7 @@
     </div>
 </footer>
 
-<?php include 'config-global.php'; ?>
+
 <script src="js/traduccion.js"></script>
 
 <script>

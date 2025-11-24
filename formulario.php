@@ -4,26 +4,33 @@ include("API/conexion.php");
 
 $error = "";
 
-// Si el formulario fue enviado
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $correo = trim($_POST["correo"]);
     $contrasena = trim($_POST["contrasena"]);
 
-    // Verificar si es registro o inicio
+    // REGISTRARSE
     if (isset($_POST["registrarse"])) {
         $nombre = trim($_POST["nombre"]);
         $verificar = trim($_POST["verificar"]);
+        $rol = isset($_POST["rol"]) && $_POST["rol"] === "repartidor" ? "repartidor" : "cliente";
 
         if ($contrasena === $verificar) {
-            // Encriptar contraseña
             $hash = password_hash($contrasena, PASSWORD_BCRYPT);
 
-            // Insertar nuevo usuario
-            $sql = "INSERT INTO usuarios (nombre, correo, contrasena) VALUES ('$nombre', '$correo', '$hash')";
+            $sql = "INSERT INTO usuarios (nombre, correo, contrasena, rol) 
+                    VALUES ('$nombre', '$correo', '$hash', '$rol')";
+
             if ($conn->query($sql)) {
                 $_SESSION["usuario"] = $nombre;
                 $_SESSION["usuario_id"] = $conn->insert_id;
-                header("Location: index.php");
+                $_SESSION["rol"] = $rol;
+
+                // Redirigir según rol
+                if ($rol === "repartidor") {
+                    header("Location: panel_repartidor.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit;
             } else {
                 $error = "⚠️ Ese correo ya está registrado.";
@@ -31,17 +38,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             $error = "Las contraseñas no coinciden.";
         }
-    } elseif (isset($_POST["iniciar"])) {
-        // Verificar login
+    }
+
+    // INICIAR SESIÓN
+    elseif (isset($_POST["iniciar"])) {
         $sql = "SELECT * FROM usuarios WHERE correo='$correo'";
         $resultado = $conn->query($sql);
 
         if ($resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
+
             if (password_verify($contrasena, $usuario["contrasena"])) {
                 $_SESSION["usuario"] = $usuario["nombre"];
                 $_SESSION["usuario_id"] = $usuario["id"];
-                header("Location: index.php");
+                $_SESSION["rol"] = $usuario["rol"];
+
+                // Redirigir según rol
+                if ($usuario["rol"] === "repartidor") {
+                    header("Location: panel_repartidor.php");
+                } else {
+                    header("Location: index.php");
+                }
                 exit;
             } else {
                 $error = "Contraseña incorrecta.";

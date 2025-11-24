@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Contacto - 8VA Rebanada</title>
+    <title>Contacto</title>
     <link rel="stylesheet" href="css/estilo_index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>

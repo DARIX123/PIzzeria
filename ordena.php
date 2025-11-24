@@ -6,8 +6,8 @@
     <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Contacto - 8VA Rebanada</title>
-    <link rel="stylesheet" href="css/estilo_ordena.css">
+    <title>Ordena</title>
+    <link rel="stylesheet" href="css/estilo_ordena.css?v=<?php echo time(); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- 🔹 Fuente formal -->

@@ -158,48 +158,67 @@ button:hover {
 
 
 
-/* 5️⃣ Responsividad */
 @media (max-width: 768px) {
   header {
-    flex-direction: column; /* cambia a columna */
-    text-align: center;
+    flex-direction: row;         /* Evitar que se haga demasiado alto */
+    justify-content: space-between;
     align-items: center;
-    
+    padding: 10px 15px;
+    height: auto;                /* Importante para que no crezca de más */
   }
 
-  body {
-    padding-top: 170px;
-  }
-
-  .acciones-header {
-    align-items: center;
-  }
-
-  .botones-inferiores {
-    margin-right: 20px;
-  }
-
-  .botones-inferiores,.botones-superiores {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  button {
-    font-size: 0.9rem;
-    padding: 6px 10px;
+  .logo span {
+    font-size: 1.8rem;
   }
 
   .titulo {
-    font-size: 1.5rem;
-    margin: 10px 0;
+    font-size: 1.3rem;
+    margin: 0;
+    padding: 0;
   }
 
-  .btn-login {
-    margin-left: 35px;
+  .botones-superiores {
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
 
-  .acciones {
-    margin-top: 10px;
+  /* 🔴 IMPORTANTE: eliminar altura extra */
+  body {
+    padding-top: 110px;  /* Reduce este valor o incluso ponlo en 80 si quieres */
+  }
+  
+  
+ 
+
+  button, .btn-login {
+    font-size: 0.85rem;
+    padding: 5px 8px;
+  }
+
+  .btn-config {
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pie-pagina {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .footer-der {
+    text-align: center;
+  }
+
+  .contenedor-productos {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .tarjeta-producto img {
+    height: 160px;
   }
 }
 

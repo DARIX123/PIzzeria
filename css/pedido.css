@@ -1,0 +1,150 @@
+body {
+    background-image: url("img/pizza.png");
+    background-size: 200px;       /* Tamaño del pixel art */
+    background-repeat: repeat;    /* Se repite por toda la pantalla */
+    background-attachment: fixed; /* Efecto fijo al hacer scroll */
+    background-color: #f9d39b;    /* Color base cálido estilo pizzería */
+}
+
+header { 
+    background:#b22222; 
+    color:white; 
+    text-align:center; 
+    padding:15px 0; 
+}
+header h1 { 
+    margin:0; 
+    font-size:1.8rem; 
+}
+
+.estado { 
+    text-align:center; 
+    font-size:1.3rem; 
+    margin:15px 0; 
+}
+.estado span { 
+    font-weight:bold; 
+    color: #28a745; 
+}
+
+/* tarjetas */
+.productos { 
+    display:flex; 
+    flex-wrap:wrap; 
+    justify-content:center; 
+    gap:20px; 
+    padding:0 10px; 
+}
+
+.card-producto { 
+    background:white; 
+    border-radius:12px; 
+    padding:15px; 
+    box-shadow:0 4px 12px rgba(0,0,0,0.1); 
+    width:200px; 
+    text-align:center; 
+    transition: transform 0.2s; 
+}
+.card-producto:hover { transform: translateY(-5px); }
+
+.card-producto img { 
+    width:100px; 
+    height:100px; 
+    border-radius:10px; 
+    object-fit:cover; 
+}
+.card-producto h3 { 
+    margin:10px 0 5px; 
+    color:#b22222; 
+    font-size:1.1rem; 
+}
+.card-producto p { 
+    margin:2px 0; 
+    font-size:0.95rem; 
+}
+
+/* botones inferiores */
+.botones { 
+    text-align:center; 
+    margin:20px 0; 
+}
+.botones a { 
+    text-decoration:none; 
+    margin:0 10px; 
+    background:#b22222; 
+    color:white; 
+    padding:10px 20px; 
+    border-radius:8px; 
+    font-weight:bold; 
+    transition:0.3s; 
+    display:inline-block; 
+}
+.botones a:hover { background:#ff4444; }
+
+/* overlay de entregado */
+#entregado {
+    position: fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.85);
+    display:flex; align-items:center; justify-content:center; 
+    flex-direction:column;
+    z-index:9999; color:white; 
+    font-size:2.5rem; font-weight:bold; text-align:center;
+    opacity:0; visibility:hidden; 
+    transition: all 0.5s ease;
+}
+#entregado.mostrar { opacity:1; visibility:visible; }
+
+.pizza { 
+    width:150px; 
+    height:150px; 
+    background-image:url('../img/pizza.gif'); 
+    background-size:cover; 
+    margin-bottom:20px; 
+    animation:girar 2s infinite linear; 
+}
+@keyframes girar { 
+    from {transform:rotate(0deg);} 
+    to {transform:rotate(360deg);} 
+}
+
+.texto { 
+    font-size:2.5rem; 
+    color:#ffdd57; 
+    text-shadow:3px 3px 10px black; 
+    animation:aparecer 1s ease-in-out; 
+}
+@keyframes aparecer { 
+    from {opacity:0; transform:scale(0.5);} 
+    to {opacity:1; transform:scale(1);} 
+}
+
+/* responsive */
+@media (max-width:600px) {
+    .card-producto { width:45%; }
+}
+
+/* Pantalla completa */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f9d39b; /* Color estilo pizzería */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* La pizza girando */
+.loader-pizza {
+    width: 120px;
+    image-rendering: pixelated; /* Mantiene estilo pixel art */
+    animation: spin 1.8s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}

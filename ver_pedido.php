@@ -5,7 +5,7 @@ if (!isset($_GET['pedido_id'])) {
     die("Falta ID del pedido");
 }
 
-$pedido_id = ($_GET['pedido_id']);
+$pedido_id = $_GET['pedido_id'];
 
 $res = $conn->query("
     SELECT c.*, p.imagen
@@ -17,160 +17,88 @@ $res = $conn->query("
 if ($res->num_rows === 0) {
     die("No se encontró el pedido");
 }
+
+// Obtener estado general del pedido
+$estadoQuery = $conn->query("SELECT estado FROM compras WHERE pedido_id='$pedido_id' LIMIT 1");
+$estadoData = $estadoQuery->fetch_assoc();
+$estado = $estadoData['estado'] ?? 'pendiente';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/pedido.css?v=<?php echo time(); ?>">
+
 <title>Pedido #<?php echo $pedido_id; ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #fff8f0;
-        margin: 0;
-        padding: 0;
-    }
-
-    h2 {
-        text-align: center;
-        color: #b22222;
-        margin-top: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-    }
-
-    table {
-        width: 90%;
-        margin: 30px auto;
-        border-collapse: collapse;
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 0 15px rgba(0,0,0,0.15);
-    }
-
-    td, th {
-        border: 1px solid #ccc;
-        padding: 12px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #b22222;
-        color: white;
-        font-size: 1.2rem;
-    }
-
-    /* 🔥 ANIMACIÓN DE ENTREGADO */
-    #entregado {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        z-index: 9999;
-        color: white;
-        font-size: 3rem;
-        font-weight: bold;
-        text-align: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.5s ease;
-    }
-
-    #entregado.mostrar {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .pizza {
-        width: 180px;
-        height: 180px;
-        background-image: url('img/pizza.gif');
-        background-size: cover;
-        margin-bottom: 20px;
-        animation: girar 2s infinite linear;
-    }
-
-    @keyframes girar {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    .texto {
-        font-size: 3rem;
-        color: #ffdd57;
-        text-shadow: 3px 3px 10px black;
-        animation: aparecer 1s ease-in-out;
-    }
-
-    @keyframes aparecer {
-        from { opacity: 0; transform: scale(0.5); }
-        to { opacity: 1; transform: scale(1); }
-    }
-</style>
 </head>
+<div id="loading">
+    <img src="img/pizza.png" class="loader-pizza">
+</div>
 
 <body>
+<canvas id="pizzas-canvas"></canvas>
 
-<h2>Pedido #<?php echo $pedido_id; ?></h2>
 
-<table>
-<tr>
-<th>Imagen</th>
-<th>Producto</th>
-<th>Cantidad</th>
-<th>Total</th>
-</tr>
+<header>
+    <h1>Pedido #<?php echo $pedido_id; ?></h1>
+</header>
 
+<div class="estado">
+    Estado: <span id="estado"><?php echo ($estado === 'entregado') ? 'Entregado ✅' : ucfirst($estado); ?></span>
+</div>
+
+<div class="productos">
 <?php while ($f = $res->fetch_assoc()): ?>
-<tr>
-  <td><img src="<?php echo $f['imagen']; ?>" width="80"></td>
-  <td><?php echo $f['producto']; ?></td>
-  <td><?php echo $f['cantidad']; ?></td>
-  <td>$<?php echo $f['total']; ?></td>
-</tr>
+    <div class="card-producto">
+        <img src="<?php echo $f['imagen'] ?: 'img/default.png'; ?>" alt="<?php echo $f['producto']; ?>">
+        <h3><?php echo $f['producto']; ?></h3>
+        <p>Cantidad: <?php echo $f['cantidad']; ?></p>
+        <p>Total: $<?php echo $f['total']; ?></p>
+    </div>
 <?php endwhile; ?>
-</table>
+</div>
 
-<!-- 🔥 ANIMACIÓN DE ENTREGADO -->
+<div class="botones">
+    <a href="index.php"> Inicio</a>
+    <a href="mis_compras.php"> Mis Compras</a>
+</div>
+
+<!-- Animación de entregado -->
 <div id="entregado">
     <div class="pizza"></div>
     <div class="texto">¡PEDIDO ENTREGADO! 🍕🔥</div>
 </div>
 
+<script>
+    window.addEventListener("load", function() {
+        document.getElementById("loading").style.display = "none";
+    });
+</script>
+
 
 <script>
-// Conexión WebSocket al servidor NGROK (WSS)
+// WebSocket al servidor Node.js/Ngrok
 const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev/ws");
 
 socket.onopen = () => {
     console.log("🔵 Conectado WebSocket");
-
-    // Avisar que este pedido está abierto en el celular
-    socket.send("usuario_abierto:<?php echo $pedido_id; ?>");
+    socket.send("pedido_abierto:<?php echo $pedido_id; ?>");
 };
 
 socket.onmessage = (event) => {
     console.log("📩 Mensaje:", event.data);
-
-    // Solo reaccionar si el pedido coincide
-    if (event.data === "verificado:<?php echo $pedido_id; ?>") {
+    if(event.data === "pedido_actualizado:<?php echo $pedido_id; ?>") {
         const animacion = document.getElementById("entregado");
         animacion.classList.add("mostrar");
-
-        setTimeout(() => {
-            animacion.classList.remove("mostrar");
-        }, 3000);
+        document.getElementById("estado").innerText = "Entregado ✅";
+        setTimeout(() => { animacion.classList.remove("mostrar"); }, 3000);
     }
 };
 </script>
+<script src="js/pizzas_particles.js"></script>
 
 </body>
 </html>

@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+<?php
+session_start();
+
+// 🔹 Si hay usuario loggeado y es repartidor, ir al panel
+if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
+    header("Location: panel_repartidor.php");
+    exit;
+}
+?>
+
 
 <head>
     <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
@@ -7,8 +17,9 @@
     <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
 
     <meta charset="UTF-8">
-    <title>Pizzeria</title>
-    <link rel="stylesheet" href="css/estilo_index.css">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="css/estilo_index.css?v=<?php echo time(); ?>">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -52,7 +63,7 @@
 
 <body>
     <header>
-        <?php session_start(); ?>
+      
 
         <div class="logo">
             <span>🍕</span>

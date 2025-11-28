@@ -53,18 +53,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION["usuario_id"] = $usuario["id"];
                 $_SESSION["rol"] = $usuario["rol"];
 
-                // Redirigir según rol
-                if ($usuario["rol"] === "repartidor") {
-                    header("Location: panel_repartidor.php");
-                } else {
-                    header("Location: index.php");
+                // 🛑 LÓGICA DE REDIRECCIÓN POR ROLES
+                if ($usuario["rol"] === "admin") {
+                    header("Location: panel_admin.php"); // Al panel del jefe
+                } 
+                elseif ($usuario["rol"] === "repartidor") {
+                    header("Location: panel_repartidor.php"); // Al panel de trabajo
+                } 
+                else {
+                    header("Location: index.php"); // Al menú normal
                 }
                 exit;
             } else {
                 $error = "Contraseña incorrecta.";
             }
-        } else {
-            $error = "No existe una cuenta con ese correo.";
         }
     }
 }

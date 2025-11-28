@@ -26,9 +26,9 @@
             <div class="botones-superiores">
                 <?php if (isset($_SESSION["usuario"])): ?>
                 <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
-                <a href="logout.php" class="btn-login">Cerrar sesión</a>
+                <a href="logout.php" class="btn-login" data-i18n="cerrar-sesion">Cerrar sesión</a>
             <?php else: ?>
-                <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+                <a href="formulario.php" class="btn-login" data-i18n="btn-login">Iniciar Sesión</a>
             <?php endif; ?>
                 <button class="btn-carrito">
                     <img src="img/carro.png" alt="carrito">
@@ -54,7 +54,7 @@
 
         <!-- 📞 IZQUIERDA -->
         <section class="servicio" style="border: 2px solid #b22222; border-radius: 10px; padding: 20px;">
-            <h3 style="color:#0a3d62;">Estamos a tu servicio ☎️</h3>
+            <h3 style="color:#0a3d62;" data-i18n="contacto-servicio">Estamos a tu servicio ☎️</h3>
             <ul style="list-style:none; padding:10px 0;">
                 <li>477 294 3183</li>
                 <li>477 522 3650</li>
@@ -63,27 +63,27 @@
             </ul>
 
             <div class="horarios" style="margin-top:15px;">
-                <h4 style="color:#0a3d62;">Horarios</h4>
-                <p>Pedidos en línea: 11:00am – 11:00pm</p>
-                <p>Entrega a domicilio: hasta 11:30pm</p>
-                <p>Soporte en línea: 12:00pm – 9:00pm</p>
+                <h4 style="color:#0a3d62;" data-i18n="contacto-horarios">Horarios</h4>
+                <p data-i18n="horario-pedidos">Pedidos en línea: 11:00am – 11:00pm</p>
+                <p data-i18n="horario-entrega">Entrega a domicilio: hasta 11:30pm</p>
+                <p data-i18n="horario-soporte">Soporte en línea: 12:00pm – 9:00pm</p>
             </div>
         </section>
 
         <!-- 💬 DERECHA -->
         <section class="sugerencias" style="border: 2px solid #b22222; border-radius: 10px; padding: 20px;">
-            <h3 style="color:#0a3d62;">Queremos escucharte</h3>
-            <p>¿Tienes alguna sugerencia, comentario o queja sobre nuestro servicio o productos?  
+            <h3 style="color:#0a3d62;" data-i18n="contacto-escucharte">Queremos escucharte</h3>
+            <p data-i18n="contacto-desc">¿Tienes alguna sugerencia, comentario o queja sobre nuestro servicio o productos?  
             Por favor compártela con nosotras.</p>
 
-            <textarea placeholder="Escribe aquí..." style="width:100%; height:120px; border:1.5px solid #b22222; border-radius:8px; padding:10px; resize:none; margin-top:10px;"></textarea>
+            <textarea placeholder="Escribe aquí..." data-i18n="placeholder-escribe" style="width:100%; height:120px; border:1.5px solid #b22222; border-radius:8px; padding:10px; resize:none; margin-top:10px;"></textarea>
         </section>
     </main>
 
     <!-- 🔹 PIE DE PÁGINA (igual que antes) -->
     <footer class="pie-pagina">
         <div class="footer-izq">
-            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
+            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank" data-i18n="ver-ubicacion">📍 Ver ubicación</a>
         </div>
         <div class="footer-der">
             <p>ALAMEDAS DE VILLAFRANCA</p>

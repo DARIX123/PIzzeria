@@ -37,43 +37,57 @@ header h1 {
 }
 
 .card-producto { 
-    background:white; 
-    border-radius:12px; 
-    padding:15px; 
-    box-shadow:0 4px 12px rgba(0,0,0,0.1); 
-    width:200px; 
-    text-align:center; 
+    background: white; 
+    border-radius: 12px; 
+    padding: 15px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    
+    /* CAMBIOS AQUÍ 👇 */
+    width: 100%;           /* Ocupa todo el ancho disponible */
+    max-width: 450px;      /* Pero no crezcas más de 450px */
+    height: auto;          /* La altura se ajusta al contenido */
+    /* ---------------- */
+
+    text-align: center; 
     transition: transform 0.2s; 
 }
+
 .card-producto:hover { transform: translateY(-5px); }
 
 .card-producto img { 
-    width:100px; 
-    height:100px; 
-    border-radius:10px; 
-    object-fit:cover; 
+    /* CAMBIOS AQUÍ 👇 */
+    width: 100%;           /* Se ajusta al ancho de la tarjeta */
+    height: auto;          /* Mantiene la proporción */
+    aspect-ratio: 1 / 1;   /* Mantiene la imagen cuadrada siempre */
+    /* ---------------- */
+
+    border-radius: 10px; 
+    object-fit: cover; 
 }
+
 .card-producto h3 { 
-    margin:10px 0 5px; 
-    color:#b22222; 
-    font-size:1.1rem; 
+    margin: 10px 0 10px; 
+    color: #b22222; 
+    font-size: 1.5rem; 
 }
+
 .card-producto p { 
-    margin:2px 0; 
-    font-size:0.95rem; 
+    margin: 5px 0; 
+    font-size: 1.2rem; 
 }
 
 /* botones inferiores */
 .botones { 
     text-align:center; 
-    margin:20px 0; 
+    margin:20px 0;
 }
 .botones a { 
     text-decoration:none; 
     margin:0 10px; 
     background:#b22222; 
     color:white; 
-    padding:10px 20px; 
+    padding:15px 40px;
+    font-size: 1.5rem; 
     border-radius:8px; 
     font-weight:bold; 
     transition:0.3s; 
@@ -119,8 +133,22 @@ header h1 {
 }
 
 /* responsive */
-@media (max-width:600px) {
-    .card-producto { width:45%; }
+/* responsive */
+@media (max-width: 768px) {
+    .productos {
+        flex-direction: column; /* Apila las tarjetas verticalmente */
+        align-items: center;    /* Las centra */
+    }
+
+    .card-producto { 
+        width: 90%;             /* Ocupan el 90% del ancho del celular */
+        margin-bottom: 20px;    /* Separación entre tarjetas */
+    }
+    
+    /* Ajuste opcional para que el texto no sea gigante en pantallas pequeñas */
+    header h1 {
+        font-size: 1.5rem;
+    }
 }
 
 /* Pantalla completa */
@@ -148,3 +176,4 @@ header h1 {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
 }
+

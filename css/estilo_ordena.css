@@ -629,13 +629,10 @@ button:hover {
 ============================ */
 
 body.dark-mode {
-    background-color: #1c1c1c !important;
+    background-color: #121212 !important;
     color: #ffffff !important;
 }
 
-body.dark-mode a {
-    color: #ffffff !important;
-}
 
 body.dark-mode header {
     background-color: #111 !important;
@@ -646,7 +643,7 @@ body.dark-mode .pie-pagina {
 }
 
 body.dark-mode .tarjeta-producto {
-    background-color: #2a2a2a !important;
+    background-color: #1a1a1a !important;
     color: #fff !important;
 }
 
@@ -666,4 +663,130 @@ body.dark-mode .btn-cat {
 body.dark-mode .panel-carrito {
     background-color: #222 !important;
     color: #fff !important;
+}
+
+/* Estilos para los controles dentro del carrito */
+.item-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+
+.item-carrito img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-info {
+    flex-grow: 1;
+}
+
+.item-info h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.item-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #b22222;
+    font-weight: bold;
+}
+
+/* Controles de cantidad (+ -) */
+.item-controles {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.btn-mini {
+    background: #eee;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-mini:hover {
+    background: #ddd;
+}
+
+.cantidad-item {
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Botón de eliminar (Basurero) */
+.btn-eliminar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.btn-eliminar:hover {
+    transform: scale(1.1);
+}
+
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3 {
+    color: #b22222 !important; /* Rojo claro para que se vea bien en negro */
+}
+
+/* 2. La Tabla en Escritorio */
+body.dark-mode table {
+    background-color: #000000 !important; /* Fondo gris oscuro */
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode th {
+    background-color: #b22222 !important; /* Rojo oscuro para encabezado */
+    border-color: #000000 !important;
+    color: white !important;
+}
+
+body.dark-mode td {
+    border-color: #000000 !important; /* Bordes grises */
+    color: #ddd !important;
+}
+
+/* 3. CORRECCIÓN RESPONSIVE (Tarjetas en Celular) */
+@media (max-width: 768px) {
+    /* En móvil, los TR son las tarjetas blancas. Aquí las volvemos oscuras */
+    body.dark-mode tr {
+        background-color: #000000 !important; 
+        border: 1px solid #000000 !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+    }
+    
+    body.dark-mode td {
+        border-bottom: 1px solid #000000 !important;
+    }
+
+    /* Las etiquetas rojas (Producto:, Total:) las ponemos más claras */
+    body.dark-mode td::before {
+        color: #b22222 !important; 
+    }
 }

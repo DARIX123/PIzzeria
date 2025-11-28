@@ -36,7 +36,7 @@ header h1 { margin:0; font-size:1.5rem; }
 <body>
 
 <header>
-    <h1>Mis Compras Entregadas</h1>
+    <h1>Mis Compras Completadas</h1>
 </header>
 
 <div class="compras">

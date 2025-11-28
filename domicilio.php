@@ -5,15 +5,18 @@ if (!isset($_SESSION["usuario"])) {
     exit;
 }
 
+if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])) {
+  header("Location: menu.php");
+  exit;
+}
+
 include __DIR__ . '/API/conexion.php';
 include __DIR__ . '/API/config.php';
 
 $usuario_id = $_SESSION['usuario_id'];
 
 // Verificar que haya productos en el carrito
-if (empty($_SESSION['carrito'])) {
-    die("Carrito vacío.");
-}
+
 
 // 🔹 Generar un pedido_id único
 $pedido_id = time() . '_' . $usuario_id;
@@ -149,9 +152,9 @@ unset($_SESSION['carrito']);
       <div class="botones-superiores">
         <?php if (isset($_SESSION["usuario"])): ?>
             <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
-            <a href="logout.php" class="btn-login">Cerrar sesión</a>
+            <a href="logout.php" class="btn-login" data-18n="cerrar-sesion">Cerrar sesión</a>
         <?php else: ?>
-            <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+            <a href="formulario.php" class="btn-login" data-18n="btn-login">Iniciar Sesión</a>
         <?php endif; ?>
         <button class="btn-carrito">
           <img src="img/carro.png" alt="carrito">
@@ -161,18 +164,18 @@ unset($_SESSION['carrito']);
   </header>
 
   <main>
-    <h2>📍 Ingresa tu dirección de entrega en León, Gto</h2>
+    <h2 data-i18n="titulo-mapa">📍 Ingresa tu dirección de entrega en León, Gto</h2>
 
     <div id="search-container">
-      <input id="pac-input" type="text" placeholder="Buscar dirección en León, Gto">
+      <input id="pac-input" type="text" placeholder="Buscar dirección en León, Gto" data-18n="buscar-direccion">
     </div>
 
     <div id="map"></div>
 
     <div class="info-direccion" id="info">
-      🏠 <strong>Dirección:</strong> <span id="direccion">No seleccionada</span><br>
-      📍 <strong>Latitud:</strong> <span id="lat">-</span> | 
-      <strong>Longitud:</strong> <span id="lng">-</span>
+       <strong data-i18n="label-direccion">Dirección:</strong> <span id="direccion">No seleccionada</span><br>
+       <strong data-i18n="label-lat">Latitud:</strong> <span id="lat">-</span> | 
+      <strong data-i18n="label-lng">Longitud:</strong> <span id="lng">-</span>
     </div>
 
     <!-- 🔹 FORMULARIO OCULTO que se llenará con los datos del mapa -->
@@ -182,10 +185,10 @@ unset($_SESSION['carrito']);
       <input type="hidden" name="direccion" id="inputDireccion">
       <input type="hidden" name="latitud" id="inputLatitud">
       <input type="hidden" name="longitud" id="inputLongitud">
-      <button type="submit" class="btn-confirmar">✅ Confirmar dirección</button>
+      <button type="submit" class="btn-confirmar" data-i18n="btn-confirmar">Confirmar dirección</button>
     </form>
 
-    <p id="alerta" class="alerta"></p>
+    <p id="alerta" class="alerta" ></p>
   </main>
 
   <script src="js/traduccion.js"></script>
@@ -242,7 +245,7 @@ unset($_SESSION['carrito']);
     }
 
     function actualizarInfo() {
-      document.getElementById("direccion").textContent = direccionSeleccionada || "No seleccionada";
+      document.getElementById("direccion").textContent = direccionSeleccionada || i18next.t('no-seleccionada');
       document.getElementById("lat").textContent = coordenadas.lat ? coordenadas.lat.toFixed(6) : "-";
       document.getElementById("lng").textContent = coordenadas.lng ? coordenadas.lng.toFixed(6) : "-";
     }
@@ -251,7 +254,7 @@ unset($_SESSION['carrito']);
     document.getElementById("formDomicilio").addEventListener("submit", function (e) {
       if (!direccionSeleccionada || !coordenadas.lat) {
         e.preventDefault();
-        document.getElementById("alerta").textContent = "⚠️ Primero selecciona una dirección válida en el mapa.";
+        document.getElementById("alerta").textContent = i18next.t('alerta-mapa');
         return;
       }
 

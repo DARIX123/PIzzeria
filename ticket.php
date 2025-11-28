@@ -2,7 +2,7 @@
 session_start();
 include("API/conexion.php");
 
-// 🔹 Obtener usuario
+//  Obtener usuario
 if (!isset($_SESSION["usuario"])) {
     header("Location: formulario.php");
     exit;
@@ -10,14 +10,14 @@ if (!isset($_SESSION["usuario"])) {
 
 $usuario_id = $_SESSION["usuario_id"];
 
-// 🔹 Obtener pedido_id de la sesión o de GET
+//  Obtener pedido_id de la sesión o de GET
 $pedido_id = $_SESSION['pedido_id'] ?? $_GET['pedido_id'] ?? null;
 
 if (!$pedido_id) {
     die("No hay pedido actual.");
 }
 
-// 🔹 Obtener todos los productos de este pedido
+//  Obtener todos los productos de este pedido
 $resultado = $conn->query( "
     SELECT c.*, p.imagen 
     FROM compras c 
@@ -25,7 +25,7 @@ $resultado = $conn->query( "
     WHERE c.usuario_id='$usuario_id' AND c.pedido_id='$pedido_id'
 ");
 
-// 🔹 Verificar si hay productos
+//  Verificar si hay productos
 if ($resultado->num_rows === 0) {
     die("No hay productos para este pedido.");
 }
@@ -34,11 +34,11 @@ if ($resultado->num_rows === 0) {
 
 require_once __DIR__ . "/phpqrcode/qrlib.php";
 
-// 👉 URL pública de Ngrok (SIN espacios)
-$ngrokHost = "https://multilobular-guarded-michelle.ngrok-free.dev";
+//  URL pública de Ngrok 
+$ngrokHost = "https://cali-arborescent-cynthia.ngrok-free.dev";
 
-// 👉 ESTA es la URL correcta que Node sí reconoce
-// 🔹 Necesitamos obtener el token desde la BD
+//  ESTA es la URL correcta que Node sí reconoce
+//  Necesitamos obtener el token desde la BD
 $tokenQuery = $conn->query("SELECT token_entrega FROM compras WHERE pedido_id='$pedido_id' LIMIT 1");
 $tokenData = $tokenQuery->fetch_assoc();
 $token = $tokenData['token_entrega'] ?? '';
@@ -67,7 +67,7 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
     <meta charset="UTF-8">
     <title>Ticket de Compra - 8VA ReBaNaDa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/estilo_index.css">
+    <link rel="stylesheet" href="css/estilo_index.css?v=<?php echo time(); ?>">
     <script src="https://unpkg.com/i18next@22.4.9/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="https://unpkg.com/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -94,10 +94,10 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
 
 <main>
 
-    <h1>🧾 Ticket de Compra</h1>
+    <h1 data-i18n="ticket-titulo">🧾 Ticket de Compra</h1>
 
     <div style="text-align:center; margin:20px;">
-        <h3>Escanea tu código QR</h3>
+        <h3 data-i18n="ticket-qr-instruccion">Escanea tu código QR</h3>
 
         <!-- Mostrar QR generado -->
         <img src="qrs/pedido_<?php echo $pedido_id; ?>.png"
@@ -106,12 +106,12 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
 
     <table>
         <tr>
-            <th>Imagen</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Tipo de entrega</th>
-            <th>Dirección</th>
+            <th data-i18n="col-imagen">Imagen</th>
+            <th data-i18n="col-producto">Producto</th>
+            <th data-i18n="col-cantidad">Cantidad</th>
+            <th data-i18n="col-total">Total</th>
+            <th data-i18n="col-tipo">Tipo de entrega</th>
+            <th data-i18n="col-direccion">Dirección</th>
         </tr>
 
         <?php while ($fila = $resultado->fetch_assoc()): 
@@ -128,12 +128,20 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
         <?php endwhile; ?>
     </table>
 
+    
+
+    <div style="margin-top: 30px;">
+        <a href="index.php" class="boton-regreso" data-i18n="btn-volver">⬅ Volver al inicio</a>
+    </div>
+
+</main>
+
    
 </main>
 
 <footer class="pie-pagina">
     <div class="footer-izq">
-        <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
+        <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank" data-i18n="ver-ubicacion">📍 Ver ubicación</a>
     </div>
     <div class="footer-der">
         <p>ALAMEDAS DE VILLAFRANCA</p>
@@ -142,25 +150,46 @@ QRcode::png($qrUrl, $filename, QR_ECLEVEL_L, 5);
 </footer>
 
 <script>
-// Conexión WebSocket al servidor Node.js
-const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev/ws");
+    const pedidoID = "<?php echo $pedido_id; ?>";
+    const socketUrl = "wss://cali-arborescent-cynthia.ngrok-free.dev/ws";
 
-socket.onopen = () => {
-    console.log("🔵 Conectado WebSocket desde PC");
-    // Avisar al servidor qué pedido se está mostrando
-    socket.send("pedido_abierto:<?php echo $pedido_id; ?>");
-};
+    // ---------------------------------------------
+    // 1️⃣ MÉTODO RÁPIDO: WEBSOCKET
+    // ---------------------------------------------
+    console.log("🔵 Iniciando WebSocket...");
+    const socket = new WebSocket(socketUrl);
 
-socket.onmessage = (event) => {
-    console.log("📩 Mensaje recibido:", event.data);
+    socket.onopen = () => {
+        console.log("✅ Conectado al Socket. Esperando señal...");
+        socket.send("pedido_abierto:" + pedidoID);
+    };
 
-    if (event.data === "pedido_actualizado:<?php echo $pedido_id; ?>") {
-        // Recargar la página para mostrar la info actualizada
-        console.log("Redirigiendo a ver_pedido.php");
-        window.location.href = "ver_pedido.php?pedido_id=<?php echo $pedido_id; ?>";
-    }
-};
+    socket.onmessage = (event) => {
+        const msg = event.data.trim();
+        console.log("📩 Señal recibida:", msg);
 
+        if (msg === "pedido_actualizado:" + pedidoID) {
+            console.log("🚀 Señal confirmada. Redirigiendo...");
+            window.location.href = "ver_pedido.php?pedido_id=" + pedidoID;
+        }
+    };
+
+    // ---------------------------------------------
+    // 2️⃣ MÉTODO SEGURO: POLLING (CONSULTA CADA 3 SEG)
+    // (Por si el WebSocket falla o el celular pierde señal)
+    // ---------------------------------------------
+    setInterval(() => {
+        fetch(`API/consultar_estado.php?pedido_id=${pedidoID}`)
+            .then(response => response.json())
+            .then(data => {
+                // Si la base de datos dice que ya está entregado, nos vamos
+                if (data.estado === 'entregado') {
+                    console.log("🔄 Base de datos actualizada. Redirigiendo...");
+                    window.location.href = "ver_pedido.php?pedido_id=" + pedidoID;
+                }
+            })
+            .catch(err => console.error("Error verificando estado:", err));
+    }, 3000); // Se ejecuta cada 3 segundos
 </script>
 
 

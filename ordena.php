@@ -106,9 +106,9 @@
             <div class="botones-superiores">
                 <?php if (isset($_SESSION["usuario"])): ?>
                 <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
-                <a href="logout.php" class="btn-login">Cerrar sesión</a>
+                <a href="logout.php" class="btn-login" data-i18n="cerrar-sesion">Cerrar sesión</a>
             <?php else: ?>
-                <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+                <a href="formulario.php" class="btn-login" data-i18n="btn-login">Iniciar Sesión</a>
             <?php endif; ?>
                 
                 <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
@@ -133,23 +133,23 @@
     <hr>
    <div class="contenedor-preferencia">
     
-    <hr>
+    
     <div class="contenido-preferencia">
         <div class="opciones-entrega">
-            <div class="opcion">
+            <div class="opcion" id="opcion-domicilio">
               <a href="domicilio.php">
-    <button class="btn-opcion">
-        <img src="img/domicilio.jpg" alt="Domicilio">
-    </button>
-</a>
-
-                <p data-i18n="opcion"> A DOMICILIO</p>
-            </div>
-            <div class="opcion">
                 <button class="btn-opcion">
-                    <img src="img/tienda.jpg" alt="En tienda">
+                <img src="img/domicilio.jpg" alt="Domicilio">
                 </button>
-                <p data-i18n="opcion1">EN TIENDA</p>
+                <p data-i18n="opcion-domicilio"> A DOMICILIO</p>
+            </div>
+
+            <div class="opcion">
+              <a href="sucursal.php">
+                <button class="btn-opcion">
+                <img src="img/tienda.jpg" alt="Domicilio">
+                </button>
+                <p data-i18n="opcion-tienda"> En tienda</p>
             </div>
         
 
@@ -164,7 +164,7 @@
     <!-- 🔹 PIE DE PÁGINA -->
     <footer class="pie-pagina">
         <div class="footer-izq">
-            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
+            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank" data-i18n="ver-ubicacion">📍 Ver ubicación</a>
         </div>
         <div class="footer-der">
             <p>ALAMEDAS DE VILLAFRANCA</p>
@@ -172,7 +172,7 @@
         </div>
     </footer>
     
-<script src="js/traduccionordena.js"></script>
+<script src="js/traduccion.js"></script>
 </body>
 
 </html>

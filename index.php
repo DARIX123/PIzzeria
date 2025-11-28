@@ -26,10 +26,10 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
 <!-- MODAL DE CONFIGURACIÓN -->
 <div id="modal-config" class="modal-config">
     <div class="modal-content animar-modal">
-        <h2> Configuración</h2>
+        <h2 data-i18n="settings-title"> Configuración</h2>
 
         <div class="config-opcion">
-            <span> Idioma:</span>
+            <span data-i18n="settings-language"> Idioma:</span>
             <select id="select-idioma">
                 <option value="es">Español</option>
                 <option value="en">English</option>
@@ -41,7 +41,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
         </div>
 
         <div class="config-opcion">
-            <span> Modo oscuro:</span>
+            <span data-i18n="settings-dark"> Modo oscuro:</span>
             <label class="switch">
                 <input type="checkbox" id="modo-oscuro">
                 <span class="slider"></span>
@@ -49,14 +49,23 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
         </div>
 
         <div class="config-opcion">
-            <span> Modo lectura:</span>
+            <span data-i18n="settings-read"> Modo lectura:</span>
             <label class="switch">
                 <input type="checkbox" id="modo-lectura">
                 <span class="slider"></span>
             </label>
         </div>
 
-        <button id="cerrar-config" class="btn-cerrar">Cerrar</button>
+        <div class="config-opcion">
+            <span data-i18n="settings-audio"> Audio del video:</span>
+            <label class="switch">
+                <input type="checkbox" id="audio-video">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+
+        <button id="cerrar-config" class="btn-cerrar" data-i18n="settings-close">Cerrar</button>
     </div>
 </div>
 
@@ -76,9 +85,9 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
             <button id="btn-config" class="btn-config">⋮</button>
     <?php if (isset($_SESSION["usuario"])): ?>
         <span class="nombre-usuario">👋 Hola, <?php echo htmlspecialchars($_SESSION["usuario"]); ?></span>
-        <a href="logout.php" class="btn-login">Cerrar sesión</a>
+        <a href="logout.php" class="btn-login" data-i18n="cerrar-sesion">Cerrar sesión</a>
     <?php else: ?>
-        <a href="formulario.php" class="btn-login">Iniciar Sesión</a>
+        <a href="formulario.php" class="btn-login" data-i18n="btn-login">Iniciar Sesión</a>
     <?php endif; ?>
 
     <button class="btn-carrito"><img src="img/carro.png" alt="carrito"></button>
@@ -95,6 +104,9 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
             <a href="menu.php" class="btn-login" data-i18n="menu">Menu</a>
             <a href="ordena.php" class="btn-login" data-i18n="ordena">Ordena</a>
             <a href="contacto.php" class="btn-login" data-i18n="contacto">Contacto</a>
+            <a href="mis_compras.php" class="btn-login" data-i18n="compras">Mis compras</a>
+
+            
 
         </div>
         <section class="hero">
@@ -106,7 +118,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
             <div class="linea"></div>
 
             <div class="video-hero">
-                <video autoplay muted loop playsinline>
+                <video id="video-hero" autoplay loop  playsinline muted>
                     <source src="img/pizza_video.mp4" type="video/mp4">
                     Tu navegador no soporta videos HTML5.
                 </video>
@@ -151,7 +163,7 @@ if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'repartidor') {
     <!-- 🔹 PIE DE PÁGINA AGREGADO -->
     <footer class="pie-pagina">
         <div class="footer-izq">
-            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank">📍 Ver ubicación</a>
+            <a href="https://maps.app.goo.gl/FVRkTHBrWogSUAgc6" target="_blank" data-i18n="ver-ubicacion">📍 Ver ubicación</a>
         </div>
         <div class="footer-der">
             <p>ALAMEDAS DE VILLAFRANCA</p>

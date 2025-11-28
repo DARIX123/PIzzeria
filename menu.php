@@ -75,7 +75,7 @@
 
 <!-- PANEL CARRITO -->
 <div id="panel-carrito" class="panel-carrito">
-    <h2 data-i18n="tu carro rebanado">TU CARRO REBANADO!!!</h2>
+    <h2 data-i18n="tu-carro">TU CARRO REBANADO!!!</h2>
     <div id="lista-carrito"></div>
     <div class="total-carrito">
         <p data-i18n="total">Total:</p> 
@@ -248,6 +248,11 @@ async function cargarProductos(categoria = 'todo', busqueda = '') {
 // -------------------------------
 // FUNCIONES DE CARRITO
 // -------------------------------
+// -------------------------------
+// FUNCIONES DE CARRITO MEJORADAS
+// -------------------------------
+
+// Función para agregar (se mantiene casi igual)
 function agregarAlCarrito(prod, cantidad) {
   const existente = carrito.find(item => item.id === prod.id);
   if (existente) {
@@ -256,8 +261,12 @@ function agregarAlCarrito(prod, cantidad) {
     carrito.push({ ...prod, cantidad });
   }
   actualizarCarrito();
+  // Abrir el carrito automáticamente al agregar (opcional)
+  document.getElementById('panel-carrito').classList.add('active');
+  document.getElementById('overlay-carrito').classList.add('active');
 }
 
+// Función para renderizar el carrito con controles
 function actualizarCarrito() {
   const lista = document.getElementById('lista-carrito');
   const contador = document.getElementById('contador-carrito');
@@ -269,21 +278,76 @@ function actualizarCarrito() {
   carrito.forEach(item => {
     const div = document.createElement('div');
     div.classList.add('item-carrito');
+    
+    // Calculamos el subtotal de este item
+    const subtotal = item.precio * item.cantidad;
+
     div.innerHTML = `
       <img src="${item.imagen}" alt="${item.nombre}">
-      <div>
-        <p>${item.nombre}</p>
-        <p>${item.cantidad} × $${item.precio}</p>
+      
+      <div class="item-info">
+        <h4>${item.nombre}</h4>
+        <p>$${subtotal.toFixed(2)}</p>
+        
+        <div class="item-controles">
+            <button class="btn-mini btn-restar">−</button>
+            <span class="cantidad-item">${item.cantidad}</span>
+            <button class="btn-mini btn-sumar">+</button>
+        </div>
       </div>
+
+      <button class="btn-eliminar" title="Eliminar producto">❌</button>
     `;
+
+    // --- AGREGAR EVENTOS A LOS BOTONES CREADOS ---
+    
+    // 1. Botón Restar (-)
+    div.querySelector('.btn-restar').addEventListener('click', () => {
+        cambiarCantidad(item.id, -1);
+    });
+
+    // 2. Botón Sumar (+)
+    div.querySelector('.btn-sumar').addEventListener('click', () => {
+        cambiarCantidad(item.id, 1);
+    });
+
+    // 3. Botón Eliminar (Basura)
+    div.querySelector('.btn-eliminar').addEventListener('click', () => {
+        eliminarProducto(item.id);
+    });
+
     lista.appendChild(div);
-    total += item.precio * item.cantidad;
+    total += subtotal;
   });
 
+  // Actualizar totales generales
   contador.textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
   totalPrecio.textContent = `$${total.toFixed(2)}`;
 }
 
+// Función para aumentar o disminuir cantidad
+function cambiarCantidad(idProducto, cambio) {
+    const item = carrito.find(item => item.id === idProducto);
+    
+    if (item) {
+        item.cantidad += cambio;
+
+        // Si la cantidad llega a 0, ¿lo borramos o lo dejamos en 1?
+        // Opción A: Dejarlo en 1 (el usuario debe usar el botón borrar para eliminar)
+        if (item.cantidad < 1) {
+            item.cantidad = 1;
+        }
+        
+        actualizarCarrito();
+    }
+}
+
+// Función para eliminar un producto totalmente
+function eliminarProducto(idProducto) {
+    // Filtramos el carrito para dejar solo los productos que NO sean el id eliminado
+    carrito = carrito.filter(item => item.id !== idProducto);
+    actualizarCarrito();
+}
 // -------------------------------
 // BOTÓN PAGAR
 // -------------------------------

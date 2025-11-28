@@ -1,4 +1,5 @@
 <?php
+session_start(); // 🔹 IMPORTANTE: Iniciar sesión para leer $_SESSION['rol']
 include("API/conexion.php");
 
 if (!isset($_GET['pedido_id'])) {
@@ -6,6 +7,9 @@ if (!isset($_GET['pedido_id'])) {
 }
 
 $pedido_id = $_GET['pedido_id'];
+
+// 🔹 Detectar el rol (si no hay sesión, asumimos que es un cliente externo/invitado)
+$rol_actual = isset($_SESSION['rol']) ? $_SESSION['rol'] : 'cliente';
 
 $res = $conn->query("
     SELECT c.*, p.imagen
@@ -62,11 +66,14 @@ $estado = $estadoData['estado'] ?? 'pendiente';
 </div>
 
 <div class="botones">
-    <a href="index.php"> Inicio</a>
-    <a href="mis_compras.php"> Mis Compras</a>
+    <?php if ($rol_actual === 'repartidor'): ?>
+        <a href="panel_repartidor.php" style="background-color: #333;">⬅ Volver al Panel</a>
+    <?php else: ?>
+        <a href="index.php"> Inicio</a>
+        <a href="mis_compras.php"> Mis Compras</a>
+    <?php endif; ?>
 </div>
 
-<!-- Animación de entregado -->
 <div id="entregado">
     <div class="pizza"></div>
     <div class="texto">¡PEDIDO ENTREGADO! 🍕🔥</div>
@@ -81,7 +88,7 @@ $estado = $estadoData['estado'] ?? 'pendiente';
 
 <script>
 // WebSocket al servidor Node.js/Ngrok
-const socket = new WebSocket("wss://multilobular-guarded-michelle.ngrok-free.dev/ws");
+const socket = new WebSocket("wss://cali-arborescent-cynthia.ngrok-free.dev/ws");
 
 socket.onopen = () => {
     console.log("🔵 Conectado WebSocket");
@@ -98,6 +105,7 @@ socket.onmessage = (event) => {
     }
 };
 </script>
+<script src="js/traduccion.js"></script>
 <script src="js/pizzas_particles.js"></script>
 
 </body>

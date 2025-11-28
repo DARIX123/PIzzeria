@@ -640,11 +640,146 @@ body.dark-mode {
 }
 body.dark-mode header,
 body.dark-mode footer {
-    background: #1f1f1f !important;
+    background: #111 !important;
 }
 
 /* ---- MODO LECTURA ---- */
 body.read-mode * {
     font-size: 20px !important;
     line-height: 1.7 !important;
+}
+
+/* ===== ANIMACIÓN REBOTE ===== */
+
+
+.pin-rebote {
+    animation: rebote 1.2s infinite ease-in-out;
+    transform-origin: bottom center; /* Para que parezca que salta del suelo */
+}
+
+@keyframes rebote {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* =========================================
+   CSS RESPONSIVE PARA TICKET
+   ========================================= */
+@media (max-width: 768px) {
+    /* Ajustes generales */
+    main {
+        padding: 20px 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Transformación de Tabla a Tarjetas */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Ocultar encabezados de tabla tradicionales */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 10px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%; /* Espacio para la etiqueta */
+        text-align: right; /* Datos alineados a la derecha */
+        min-height: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    td:last-child {
+        border-bottom: 0;
+    }
+
+    /* Estilo para la imagen en móvil */
+    td img {
+        width: 60px;
+        height: 60px;
+        margin-left: auto; /* Empujar imagen a la derecha */
+    }
+
+    /* Pseudoelemento para simular el encabezado en cada fila */
+    td:before {
+        /* Usamos el atributo data-label del HTML */
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #b22222;
+    }
+}
+
+/* =======================================================
+   CORRECCIÓN FINAL: MODO OSCURO PARA TABLA Y TICKET
+   ======================================================= */
+
+/* 1. Fondo principal y texto del ticket */
+
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3 {
+    color: #b22222 !important; /* Rojo claro para que se vea bien en negro */
+}
+
+/* 2. La Tabla en Escritorio */
+body.dark-mode table {
+    background-color: #000000 !important; /* Fondo gris oscuro */
+    color: #ffffff !important;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode th {
+    background-color: #b22222 !important; /* Rojo oscuro para encabezado */
+    border-color: #000000 !important;
+    color: white !important;
+}
+
+body.dark-mode td {
+    border-color: #000000 !important; /* Bordes grises */
+    color: #ddd !important;
+}
+
+/* 3. CORRECCIÓN RESPONSIVE (Tarjetas en Celular) */
+@media (max-width: 768px) {
+    /* En móvil, los TR son las tarjetas blancas. Aquí las volvemos oscuras */
+    body.dark-mode tr {
+        background-color: #000000 !important; 
+        border: 1px solid #000000 !important;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3) !important;
+    }
+    
+    body.dark-mode td {
+        border-bottom: 1px solid #000000 !important;
+    }
+
+    /* Las etiquetas rojas (Producto:, Total:) las ponemos más claras */
+    body.dark-mode td::before {
+        color: #b22222 !important; 
+    }
 }
